@@ -18,19 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 /* ======= admin Auth ======= */
 
-Route::group(['prefix' => 'admin'], function () {
-
-    Route::get('/login', [AdminAuthController::class, 'LoginForm'])->name('admin.show.login');
-
-});
-
-
-Route::group(['prefix' => 'admin', 'middleware' => ['user.type:admin']], function () {
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-});
-
 
 Route::get('/', function () {
     return view('welcome');
