@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\Auth\AdminAuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+/* ======= admin Auth ======= */
+
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/login', [AdminAuthController::class, 'LoginForm'])->name('admin.show.login');
+
+});
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['user.type:admin']], function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+});
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,4 +46,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
