@@ -13,13 +13,9 @@ class AdminAuthController extends Controller
         return view('admin.auth.login');
     }
 
-    public function login(Request $request)
-    {
-        return $request->all();
-    }
 
-    public function dashboard()
+    public function passwordRequest()
     {
-        return view('admin.dashboard.index');
-    }
+        return view('admin.auth.forget-password');
+   }
 }

@@ -10,15 +10,22 @@ use App\Http\Controllers\Admin\DashboardController;
 
 /* --------------------- public Routes --------------------- */
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'guest'], function () {
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => 'guest'],
+    function () {
 
-    Route::get('/login', [AdminAuthController::class, 'LoginForm'])->name('show.login');
-
-});
+        Route::get('/login', [AdminAuthController::class, 'LoginForm'])->name('show.login');
+Route::get('forget-password',[AdminAuthController::class,'passwordRequest'])->name('password.request');
+    });
 
 /* --------------------- Protected Routes --------------------- */
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'user.type:admin']], function () {
+Route::group(['prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => ['auth', 'user.type:admin']],
+    function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-});
+    });
