@@ -31,11 +31,11 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::user()->user_type === 'admin') {
 
-            return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD);
+            return redirect()->intended(RouteServiceProvider::ADMIN_DASHBOARD)->with('success', 'Welcome');
 
         } else {
 
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME)->with('success', 'Welcome');
         }
 
     }
@@ -51,6 +51,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'you logout successfully');
     }
 }

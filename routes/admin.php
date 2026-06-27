@@ -17,7 +17,7 @@ Route::group([
     function () {
 
         Route::get('/login', [AdminAuthController::class, 'LoginForm'])->name('show.login');
-Route::get('forget-password',[AdminAuthController::class,'passwordRequest'])->name('password.request');
+        Route::get('forget-password', [AdminAuthController::class, 'passwordRequest'])->name('password.request');
     });
 
 /* --------------------- Protected Routes --------------------- */

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{{-- Head  --}}
 @include('admin.dashboard.layouts.head')
 
 <body>
@@ -16,8 +18,10 @@
             @yield('content')
 
         </div>
+
         {{--     Footer   --}}
         @include('admin.dashboard.layouts.footer')
+
     </div>
 </div>
 
