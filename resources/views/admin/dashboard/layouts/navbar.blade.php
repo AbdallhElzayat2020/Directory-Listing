@@ -12,7 +12,7 @@
                 <div class="d-sm-none d-lg-inline-block">Hi, {{Auth::user()->name}}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="features-profile.html" class="dropdown-item has-icon">
+                <a href="{{ route('admin.profile.index') }}" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>
                 <a href="features-settings.html" class="dropdown-item has-icon">
@@ -23,7 +23,8 @@
                 <form action="{{ route('logout') }}" id="logout-btn" method="post">
                     @csrf
 
-                    <a href="#" onclick="event.preventDefault(); document.querySelector('#logout-btn').submit();" class="dropdown-item has-icon text-danger">
+                    <a href="#" onclick="event.preventDefault(); document.querySelector('#logout-btn').submit();"
+                       class="dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </form>

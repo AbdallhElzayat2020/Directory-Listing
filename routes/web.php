@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* ======= admin Auth ======= */
 
-
-Route::get('/',[HomeController::class,'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
