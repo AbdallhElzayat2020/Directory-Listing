@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\PasswordController;
 
 /* --------------------- public Routes --------------------- */
 
@@ -35,6 +35,6 @@ Route::group(['prefix' => 'admin',
         Route::put('profile', [ProfileController::class, 'update'])
             ->name('profile.update');
 
-        Route::get('profile/delete-avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.delete-avatar');
-        Route::get('profile/delete-banner', [ProfileController::class, 'deleteBanner'])->name('profile.delete-banner');
+        Route::put('profile/change-password', [PasswordController::class, 'updatePassword'])
+            ->name('profile.change-password');
     });
