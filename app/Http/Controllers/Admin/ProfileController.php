@@ -32,14 +32,21 @@ class ProfileController extends Controller
 
         if ($request->hasFile('avatar')) {
 
-            $file = $request->file('avatar');
+            if ($data['avatar'] && $oldAvatar) {
+                Storage::disk('avatars')->delete($oldAvatar);
+            }
 
-            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('', $filename, 'avatars');
-            $data['avatar'] = $filename;
+            $file = $request->file('avatar');
+            $avatarName = Str::uuid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('', $avatarName, 'avatars');
+            $data['avatar'] = $avatarName;
         }
 
+
         if ($request->hasFile('banner')) {
+            if ($oldBanner && $data['banner']) {
+                Storage::disk('banners')->delete($oldBanner);
+            }
             $file = $request->file('banner');
             $bannerName = Str::uuid() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('', $bannerName, 'banners');
@@ -50,9 +57,9 @@ class ProfileController extends Controller
         if (isset($data['avatar']) && $oldAvatar) {
             Storage::disk('avatars')->delete($oldAvatar);
         }
-        if (isset($data['banner']) && $oldBanner
-        ) {
+        if (isset($data['banner']) && $oldBanner) {
             Storage::disk('banners')->delete($oldBanner);
         }
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }
