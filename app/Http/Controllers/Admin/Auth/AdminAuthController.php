@@ -17,5 +17,5 @@ class AdminAuthController extends Controller
     public function passwordRequest()
     {
         return view('admin.auth.forget-password');
-   }
+    }
 }

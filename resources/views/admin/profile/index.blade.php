@@ -49,6 +49,9 @@
                                                    id="avatar-input"
                                                    class="form-control"
                                                    accept="image/*">
+                                            @error('avatar')
+                                            <span class="text-danger"> {{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -71,12 +74,15 @@
                                                    id="banner-input"
                                                    class="form-control"
                                                    accept="image/*">
+                                            @error('banner')
+                                            <span class="text-danger"> {{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- باقي الحقول -->
                                 <div class="row my-4">
+                                    {{--  Name --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="name">Name <span class="text-danger">*</span></label>
@@ -91,7 +97,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--email--}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="email">Email <span class="text-danger">*</span></label>
@@ -106,7 +112,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{-- phone --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="phone">Phone</label>
@@ -121,7 +127,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--  Address  --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="address">Address</label>
@@ -136,7 +142,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--  Website  --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="website">Website</label>
@@ -151,7 +157,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--  Facebook Link  --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="facebook_link">Facebook</label>
@@ -166,7 +172,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--x Link--}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="x_link">X Link</label>
@@ -181,7 +187,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--linkedin Link--}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="linkedin_link">LinkedIn Link</label>
@@ -196,7 +202,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--Instagram Link--}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="instagram_link">Instagram Link</label>
@@ -211,7 +217,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--Whatsapp--}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="whatsapp">Whatsapp</label>
@@ -226,13 +232,13 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    {{--About--}}
                                     <div class="col-lg-12 mt-4">
                                         <div class="form-group">
                                             <label for="about">About</label>
                                             <textarea id="about"
                                                       name="about"
-                                                      class="form-control summernote-simple">{{ $profile->about }}</textarea>
+                                                      class="form-control summernote-simple">{!! $profile->about !!}</textarea>
                                             @error('about')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror

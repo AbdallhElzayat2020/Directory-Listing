@@ -16,7 +16,6 @@
 @stack('js')
 
 {{-- Upload Preview --}}
-
 <script>
     $.uploadPreview({
         input_field: "#image-upload-avatar",   // Default: .image-upload
@@ -27,4 +26,17 @@
         no_label: false,                // Default: false
         success_callback: null          // Default: null
     });
+</script>
+
+{{--toastr--}}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<script>
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+    toastr.error("{{$error}}");
+    @endforeach
+    @endif
 </script>
