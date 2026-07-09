@@ -13,6 +13,7 @@
 
 {{-- Upload Preview --}}
 <script src="{{asset('assets/admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
+
 @stack('js')
 
 {{-- Upload Preview --}}
