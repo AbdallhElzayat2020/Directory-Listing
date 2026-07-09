@@ -36,6 +36,12 @@
                     <div class="wsus__login_area">
                         <h2>Welcome back!</h2>
                         <p>sign in to continue</p>
+                        <br>
+                        @session('status')
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                        @endsession
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="row">

@@ -36,6 +36,8 @@
                     <div class="wsus__login_area">
                         <h2>Forget Password</h2>
                         <br>
+
+                        {{--   status alert   --}}
                         @session('status')
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
