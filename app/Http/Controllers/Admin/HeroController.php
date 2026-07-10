@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateHeroRequest;
 use App\Models\Hero;
 use App\Traits\FileHandler;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class HeroController extends Controller
@@ -15,10 +16,12 @@ class HeroController extends Controller
     public function index()
     {
         $banner = Hero::first();
-        return view('admin.hero.index', compact('banner'));
+        return view('admin.hero.index', [
+            'banner' => $banner
+        ]);
     }
 
-    public function update(UpdateHeroRequest $request)
+    public function update(UpdateHeroRequest $request): RedirectResponse
     {
         $banner = Hero::first();
         $oldImage = $banner->bg_image;

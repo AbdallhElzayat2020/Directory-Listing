@@ -41,10 +41,10 @@ Route::group(['prefix' => 'admin',
             ->name('profile.change-password');
 
         /*  --- Heroes Routes --- */
-        Route::get('heroes-sections',[HeroController::class,'index'])
-        ->name('hero.index');
+        Route::get('hero-section', [HeroController::class, 'index'])
+            ->name('hero.index');
 
-        Route::put('heroes-sections',[HeroController::class,'update'])
+        Route::put('hero-section', [HeroController::class, 'update'])
             ->name('hero.update');
 
     });
