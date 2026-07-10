@@ -16,7 +16,11 @@ Route::group([
     'middleware' => 'guest'],
     function () {
 
+        /* ------- Login Route ------- */
         Route::get('/login', [AdminAuthController::class, 'LoginForm'])->name('show.login');
+
+
+        /* ------- forget-password Route ------- */
         Route::get('forget-password', [AdminAuthController::class, 'passwordRequest'])->name('password.request');
     });
 

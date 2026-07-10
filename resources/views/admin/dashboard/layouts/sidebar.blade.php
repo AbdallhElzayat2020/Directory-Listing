@@ -7,14 +7,19 @@
             <a href="#">St</a>
         </div>
         <ul class="sidebar-menu">
+            {{--  Dashboard Route  --}}
             <li class="menu-header">Dashboard</li>
-            <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
+            <li class="{{setSidebarActive(['admin.dashboard'])}}"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
 
-            <li class="dropdown">
+            {{--  Sections Route  --}}
+            <li class="menu-header">Sections</li>
+            <li class="dropdown {{setSidebarActive(['admin.hero.*'])}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Sections</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.hero.index') }}">Hero Section</a></li>
-                    <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
+
+                    {{--  Hero Section  --}}
+                    <li class="{{setSidebarActive(['admin.hero.index'])}}"><a class="nav-link " href="{{ route('admin.hero.index') }}">Hero Section</a></li>
+
                 </ul>
             </li>
 
