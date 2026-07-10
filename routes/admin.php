@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
@@ -26,6 +27,7 @@ Route::group(['prefix' => 'admin',
     'middleware' => ['auth', 'user.type:admin']],
     function () {
 
+        /*  --- dashboard Route --- */
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         /*  --- Profile Routes --- */
@@ -35,6 +37,14 @@ Route::group(['prefix' => 'admin',
         Route::put('profile', [ProfileController::class, 'update'])
             ->name('profile.update');
 
-        Route::put('profile/change-password', [PasswordController::class, 'updatePassword'])
+        Route::put('change-password', [PasswordController::class, 'updatePassword'])
             ->name('profile.change-password');
+
+        /*  --- Heroes Routes --- */
+        Route::get('heroes-sections',[HeroController::class,'index'])
+        ->name('hero.index');
+
+        Route::put('heroes-sections',[HeroController::class,'update'])
+            ->name('hero.update');
+
     });
