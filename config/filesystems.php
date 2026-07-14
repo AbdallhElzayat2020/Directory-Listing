@@ -60,6 +60,14 @@ return [
             'throw' => false,
         ],
 
+        'categories' => [
+            'driver' => 'local',
+            'root' => public_path('categories'),
+            'url' => env('APP_URL') . '/categories',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

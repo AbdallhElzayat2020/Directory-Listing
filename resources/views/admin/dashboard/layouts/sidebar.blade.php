@@ -23,14 +23,18 @@
                 </ul>
             </li>
 
-
+            {{--  Listing Route  --}}
+            <li class="menu-header">Listing</li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Layout</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Listing</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="layout-default.html">Default Layout</a></li>
-                    <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
+                    <li class="{{setSidebarActive(['admin.categories.index'])}}"><a class="nav-link" href="{{ route('admin.categories.index') }}">Categories</a></li>
+                    <li class="{{setSidebarActive(['admin.locations.index'])}}"><a class="nav-link" href="{{ route('admin.locations.index') }}">Locations</a></li>
                 </ul>
             </li>
+
+
+
             <li><a class="nav-link" href="#"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
         </ul>
     </aside>

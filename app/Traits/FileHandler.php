@@ -15,7 +15,7 @@ trait FileHandler
             return $oldFile;
         }
 
-        if ($oldFile) {
+        if ($oldFile && Storage::disk($disk)->exists($oldFile)) {
             Storage::disk($disk)->delete($oldFile);
         }
 

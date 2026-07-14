@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layouts.master')
 
-@section('dashboard_title','Edit Category')
+@section('dashboard_title','Category Details')
 
 @section('content')
     <section class="section">
@@ -10,7 +10,8 @@
                     <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
-            <h1>Edit Category</h1>
+
+            <h1>Category Details</h1>
 
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active">
@@ -19,150 +20,105 @@
                 <div class="breadcrumb-item">
                     <a href="{{ route('admin.categories.index') }}">Categories</a>
                 </div>
-                <div class="breadcrumb-item">Edit Category</div>
+                <div class="breadcrumb-item">Category Details</div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Edit Category</h2>
+            <h2 class="section-title">Category Details</h2>
 
             <div class="row">
                 <div class="col-12">
                     <div class="card">
 
                         <div class="card-header">
-                            <h4>Edit Category</h4>
+                            <h4>{{ $category->title }}</h4>
+
+                            <div class="card-header-action">
+                                <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </div>
                         </div>
 
                         <div class="card-body">
-                            <form action="{{ route('admin.categories.update',$category->id) }}" method="POST" enctype="multipart/form-data">
 
-                                @csrf
-                                @method('PUT')
+                            <div class="row">
 
-                                <div class="row">
-
-                                    {{-- Title --}}
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Title <span class="text-danger">*</span></label>
-                                            <input type="text"
-                                                   name="title"
-                                                   class="form-control"
-                                                   placeholder="Enter category title"
-                                                   value="{{ old('title',$category->title) }}">
-
-                                            @error('title')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    {{-- Icon Image --}}
-                                    <div class="col-lg-6">
-                                        @if ($category->icon_image)
-                                            <div class="mb-2">
-                                                <img src="{{ asset('categories/'.$category->icon_image) }}" alt="Icon Image" width="100">
-                                            </div>
-                                        @endif
-                                        <div class="form-group">
-                                            <label>Icon Image <span class="text-danger">*</span> </label>
-                                            <input type="file"
-                                                   name="icon_image"
-                                                   class="form-control"
-                                                   accept="image/*">
-
-                                            @error('icon_image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    {{-- Background Image --}}
-                                    <div class="col-lg-6">
-                                        @if ($category->bg_image)
-                                            <div class="mb-2">
-                                                <img src="{{ asset('categories/'.$category->bg_image) }}" alt="Background Image" width="100">
-                                            </div>
-                                        @endif
-                                        <div class="form-group">
-                                            <label>Background Image <span class="text-danger">*</span> </label>
-                                            <input type="file"
-                                                   name="bg_image"
-                                                   class="form-control"
-                                                   accept="image/*">
-
-                                            @error('bg_image')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    {{-- Status --}}
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Status <span class="text-danger">*</span></label>
-
-                                            <select name="status" class="form-control">
-                                                <option value="">Select Status</option>
-                                                <option value="active" {{ old('status',$category->status) == 'active' ? 'selected' : '' }}>
-                                                    Active
-                                                </option>
-                                                <option value="inactive" {{ old('status',$category->status) == 'inactive' ? 'selected' : '' }}>
-                                                    Inactive
-                                                </option>
-                                            </select>
-
-                                            @error('status')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    {{-- Show At Home --}}
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Show At Home <span class="text-danger">*</span></label>
-
-                                            <select name="show_at_home" class="form-control">
-                                                <option value="">Select Option</option>
-                                                <option value="yes" {{ old('show_at_home',$category->show_at_home) == 'yes' ? 'selected' : '' }}>
-                                                    Yes
-                                                </option>
-                                                <option value="no" {{ old('show_at_home',$category->show_at_home) == 'no' ? 'selected' : '' }}>
-                                                    No
-                                                </option>
-                                            </select>
-
-                                            @error('show_at_home')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    {{-- Description --}}
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Description</label>
-
-                                            <textarea name="description" rows="6" class="form-control"
-                                                      placeholder="Enter category description">{{ old('description',$category->description) }}</textarea>
-
-                                            @error('description')
-                                            <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
+                                <div class="col-md-6 mb-4">
+                                    <strong>Title</strong>
+                                    <p>{{ $category->title }}</p>
                                 </div>
 
-                                <div class="form-group">
-                                    <button class="btn btn-primary" type="submit">
-                                        Update
-                                    </button>
+                                <div class="col-md-6 mb-4">
+                                    <strong>Slug</strong>
+                                    <p>{{ $category->slug }}</p>
                                 </div>
 
-                            </form>
+                                <div class="col-md-6 mb-4">
+                                    <strong>Status</strong><br>
+
+                                    @if($category->status == 'active')
+                                        <span class="badge badge-success">Active</span>
+                                    @else
+                                        <span class="badge badge-danger">Inactive</span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <strong>Show At Home</strong><br>
+
+                                    @if($category->show_at_home == 'yes')
+                                        <span class="badge badge-success">Yes</span>
+                                    @else
+                                        <span class="badge badge-secondary">No</span>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <strong>Icon Image</strong>
+
+                                    <div class="mt-2">
+                                        @if($category->icon_image)
+                                            <img src="{{ asset('categories/' . $category->icon_image) }}"
+                                                 class="img-thumbnail" alt="{{ $category->title }}"
+                                                 style="width:120px;height:120px;object-fit:cover;">
+                                        @else
+                                            <p>No Image</p>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <strong>Background Image</strong>
+
+                                    <div class="mt-2">
+                                        @if($category->bg_image)
+                                            <img src="{{ asset('categories/' . $category->bg_image) }}"
+                                                 class="img-thumbnail" alt="{{ $category->title }}"
+                                                 style="width:220px;height:120px;object-fit:cover;">
+                                        @else
+                                            <p>No Image</p>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <strong>Description</strong>
+
+                                    <div class="border rounded p-3 mt-2">
+                                        {!! $category->description ?: '<span class="text-muted">No description available.</span>' !!}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer text-right">
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
+                                Back
+                            </a>
                         </div>
 
                     </div>

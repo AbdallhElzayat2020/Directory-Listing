@@ -6,7 +6,8 @@
 
 <!-- JS Libraies -->
 <script src="{{asset('assets/admin/assets/modules/summernote/summernote-bs4.js')}}"></script>
-
+{{--DataTables --}}
+<script src="//cdn.datatables.net/2.3.8/js/dataTables.min.js"></script>
 
 <!-- Template JS File -->
 <script src="{{asset('assets/admin/assets/js/scripts.js')}}"></script>
@@ -33,7 +34,7 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
+{{--show errors --}}
 <script>
     @if($errors->any())
     @foreach($errors->all() as $error)
