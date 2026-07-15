@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\HeroController;
@@ -58,5 +59,8 @@ Route::group(['prefix' => 'admin',
 
         /* Locations Routes */
         Route::resource('locations',LocationController::class);
+
+        /* Amenities Routes */
+        Route::resource('amenities', AmenityController::class);
 
     });

@@ -45,10 +45,9 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label>Title <span class="text-danger">*</span></label>
-                                            <input type="text"
-                                                   name="title"
+                                            <input type="text" name="title"
                                                    class="form-control"
-                                                   placeholder="Enter category title"
+                                                   placeholder="Enter title"
                                                    value="{{ old('title') }}">
 
                                             @error('title')
@@ -106,7 +105,7 @@
                                             <label>Notes</label>
 
                                             <textarea name="notes" rows="6" class="form-control"
-                                                      placeholder="Enter category notes">{{ old('notes') }}</textarea>
+                                                      placeholder="Enter notes">{{ old('notes') }}</textarea>
 
                                             @error('notes')
                                             <span class="text-danger">{{ $message }}</span>

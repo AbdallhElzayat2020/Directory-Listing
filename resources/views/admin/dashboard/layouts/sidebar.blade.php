@@ -25,11 +25,12 @@
 
             {{--  Listing Route  --}}
             <li class="menu-header">Listing</li>
-            <li class="dropdown">
+            <li class="dropdown {{setSidebarActive(['admin.categories.*','admin.locations.*','admin.amenities.*'])}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Listing</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{setSidebarActive(['admin.categories.index'])}}"><a class="nav-link" href="{{ route('admin.categories.index') }}">Categories</a></li>
-                    <li class="{{setSidebarActive(['admin.locations.index'])}}"><a class="nav-link" href="{{ route('admin.locations.index') }}">Locations</a></li>
+                    <li class="{{setSidebarActive(['admin.categories.*'])}}"><a class="nav-link" href="{{ route('admin.categories.index') }}">Categories</a></li>
+                    <li class="{{setSidebarActive(['admin.locations.*'])}}"><a class="nav-link" href="{{ route('admin.locations.index') }}">Locations</a></li>
+                    <li class="{{setSidebarActive(['admin.amenities.*'])}}"><a class="nav-link" href="{{ route('admin.amenities.index') }}">Amenities</a></li>
                 </ul>
             </li>
 

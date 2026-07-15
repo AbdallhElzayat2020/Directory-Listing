@@ -42,3 +42,6 @@
     @endforeach
     @endif
 </script>
+
+{{-- Bootstrap Icon Picker  --}}
+<script src="{{asset('assets/admin/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
