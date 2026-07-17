@@ -45,3 +45,6 @@
 
 {{-- Bootstrap Icon Picker  --}}
 <script src="{{asset('assets/admin/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
+
+{{--select 2 --}}
+<script src="{{asset('assets/admin/assets/modules/select2/dist/js/select2.full.min.js')}}"></script>

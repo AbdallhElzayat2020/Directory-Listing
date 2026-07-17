@@ -28,7 +28,19 @@ trait FileHandler
         return $fileName;
     }
 
-    public function deleteFile(?string $fileName, string $disk): bool
+
+//    public function uploadFiles(Request $request, string $input, ?string $oldFile, string $disk)
+//    {
+//        if ($request->hasFile($input)) {
+//            foreach ($request->file($input) as $file) {
+//                $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
+//                $file->storeAs('', $fileName, $disk);
+//            }
+//        }
+//    }
+
+//--------------------
+    function deleteFile(?string $fileName, string $disk): bool
     {
 
         if (!$fileName) {

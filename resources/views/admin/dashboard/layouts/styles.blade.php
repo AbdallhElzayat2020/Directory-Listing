@@ -19,3 +19,5 @@
 
 {{-- Bootstrap Icon Picker  --}}
 <link rel="stylesheet" href="{{asset('assets/admin/assets/css/bootstrap-iconpicker.min.css')}}">
+{{--select2 --}}
+<link rel="stylesheet" href="{{asset('assets/admin/assets/modules/select2/dist/css/select2.min.css')}}">
