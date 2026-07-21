@@ -38,6 +38,13 @@
             <i class="fas fa-video-camera text-primary mr-2"></i>
             Video Gallery
         </a>
+
+        {{-- Schedule --}}
+        <a class="dropdown-item"
+           href="{{ route('admin.listings.schedules.index', $listing) }}">
+            <i class="fas fa-calendar-alt text-primary mr-2"></i>
+            Schedule
+        </a>
         <div class="dropdown-divider"></div>
 
         @if($listing->trashed())

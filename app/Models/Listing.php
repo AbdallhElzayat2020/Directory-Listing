@@ -82,4 +82,9 @@ class Listing extends Model
     {
         return $this->hasMany(ListingVideoGallery::class);
     }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(ListingSchedule::class);
+    }
 }

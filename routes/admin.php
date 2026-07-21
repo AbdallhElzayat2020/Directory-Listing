@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\ListingImageGalleryController;
+use App\Http\Controllers\Admin\ListingScheduleController;
 use App\Http\Controllers\Admin\ListingVideoController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\HeroController;
@@ -90,5 +91,19 @@ Route::group(['prefix' => 'admin',
 
         Route::delete('/listings/{listing}/gallery-videos/{video}', [ListingVideoController::class, 'destroy'])
             ->name('listings.videos-gallery.destroy');
+
+
+        /* Listing schedule Routes */
+        Route::prefix('listings/{listing}/schedules')
+            ->name('listings.schedules.')
+            ->controller(ListingScheduleController::class)
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/', 'store')->name('store');
+                Route::get('/{schedule}/edit', 'edit')->name('edit');
+                Route::put('/{schedule}', 'update')->name('update');
+                Route::delete('/{schedule}', 'destroy')->name('destroy');
+            });
 
     });
