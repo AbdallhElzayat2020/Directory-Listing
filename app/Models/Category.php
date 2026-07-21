@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -28,12 +29,9 @@ class Category extends Model
         return $query->where('status', 'inactive');
     }
 
-    // this for deletes image from storage when delete category but i'm use a observer class
-//    protected static function booted()
-//    {
-//        static::deleted(function (Category $category) {
-//            Storage::disk('categories')->delete($category->icon_image);
-//            Storage::disk('categories')->delete($category->bg_image);
-//        });
-//    }
+    // -------------- Relationships -----------------
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
+    }
 }

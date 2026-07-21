@@ -29,15 +29,31 @@ trait FileHandler
     }
 
 
-//    public function uploadFiles(Request $request, string $input, ?string $oldFile, string $disk)
-//    {
-//        if ($request->hasFile($input)) {
-//            foreach ($request->file($input) as $file) {
-//                $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-//                $file->storeAs('', $fileName, $disk);
-//            }
-//        }
-//    }
+    public function uploadFiles(Request $request, string $input, array $oldFiles, string $disk): array {
+
+        if (!$request->hasFile($input)) {
+            return $oldFiles;
+        }
+
+        foreach ($oldFiles as $oldFile) {
+            if (Storage::disk($disk)->exists($oldFile)) {
+                Storage::disk($disk)->delete($oldFile);
+            }
+        }
+
+        $files = [];
+
+        foreach ($request->file($input) as $file) {
+
+            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+            $file->storeAs('', $fileName, $disk);
+
+            $files[] = $fileName;
+        }
+
+        return $files;
+    }
 
 //--------------------
     function deleteFile(?string $fileName, string $disk): bool

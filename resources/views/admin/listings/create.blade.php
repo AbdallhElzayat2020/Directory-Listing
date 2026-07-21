@@ -80,7 +80,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Category <span class="text-danger">*</span></label>
-                                            <select name="category_id" class="form-control select2">
+                                            <select name="category_id" class="form-control">
                                                 <option value="">Select Category</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
@@ -98,7 +98,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Location <span class="text-danger">*</span></label>
-                                            <select name="location_id" class="form-control select2">
+                                            <select name="location_id" class="form-control">
                                                 <option value="">Select Location</option>
                                                 @foreach($locations as $location)
                                                     <option value="{{ $location->id }}" @selected(old('location_id') == $location->id)>
@@ -298,7 +298,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label>Attachments Files</label>
-                                            <input type="file" name="attachments" class="form-control" multiple>
+                                            <input type="file" name="attachments" class="form-control">
                                             @error('attachments')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Listing;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -23,6 +24,18 @@ class ListingDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'listing.action')
+            ->addColumn('Category', function (Listing $listing) {
+                return $listing->category->title;
+            })
+            ->addColumn('Location', function (Listing $listing) {
+                return $listing->location->title;
+            })
+            ->addColumn('status', function (Listing $listing) {
+                return view('admin.listings.datatable.status', ['listing' => $listing]);
+            })
+            ->addColumn('action', function (Listing $listing) {
+                return view('admin.listings.datatable.action', ['listing' => $listing]);
+            })
             ->setRowId('id');
     }
 
@@ -31,7 +44,11 @@ class ListingDataTable extends DataTable
      */
     public function query(Listing $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->with([
+                'location',
+                'category',
+            ]);
     }
 
     /**
@@ -40,20 +57,20 @@ class ListingDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('listing-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('listing-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -62,15 +79,16 @@ class ListingDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(50),
+            Column::make('title'),
+            Column::make('Category'),
+            Column::make('Location'),
+            Column::make('status'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center'),
         ];
     }
 

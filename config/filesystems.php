@@ -66,6 +66,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'listing_images' => [
+            'driver' => 'local',
+            'root' => public_path('listing_images'),
+            'url' => env('APP_URL') . '/listing_images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
 
         'categories' => [
             'driver' => 'local',

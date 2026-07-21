@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Location extends Model
 {
@@ -19,5 +20,12 @@ class Location extends Model
     public function scopeInactive(Builder $query): Builder
     {
         return $query->where('status', 'inactive');
+    }
+
+    // -------------- Relationships -----------------
+
+    public function listings(): HasMany
+    {
+        return $this->hasMany(Listing::class);
     }
 }
