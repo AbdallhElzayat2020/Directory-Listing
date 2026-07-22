@@ -23,19 +23,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Image Gallery</h4>
+                            <h4>Image Gallery - {{$listing->title}}</h4>
                         </div>
                         <div class="card-body">
 
                             <form action="{{ route('admin.listings.gallery.store', $listing->id) }}" method="post"
-                                enctype="multipart/form-data">
+                                  enctype="multipart/form-data">
                                 @csrf
 
                                 {{--                                <input type="hidden" name="listing_id" value="{{request()->id}}"> --}}
                                 <div class="form-group">
                                     <label for="images">Images <code>(Multi Image Supported)</code></label>
                                     <input type="file" class="form-control" id="images" name="images[]"
-                                        multiple="multiple" accept="image/*">
+                                           multiple="multiple" accept="image/*">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -49,7 +49,7 @@
 
 
         <div class="section-body">
-            <h2 class="section-title">All Images</h2>
+            <h2 class="section-title">All Images - {{$listing->title}}</h2>
 
             <div class="row">
 
@@ -60,18 +60,18 @@
 
                             {{-- img element --}}
                             <img src="{{ asset('listing_images/' . $image->image) }}" class="card-img-top"
-                                style="height:200px;" alt="{{ $listing->title }}">
+                                 style="height:200px;" alt="{{ $listing->title }}">
 
                             <div class="card-body text-center">
 
                                 {{-- view image --}}
                                 <a href="{{ asset('listing_images/' . $image->image) }}" target="_blank"
-                                    class="btn btn-info btn-sm">
+                                   class="btn btn-info btn-sm">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
                                 <form action="{{ route('admin.listings.gallery.destroy', [$listing, $image]) }}"
-                                    method="POST" class="d-inline">
+                                      method="POST" class="d-inline">
 
                                     @csrf
                                     @method('DELETE')

@@ -215,6 +215,10 @@ class ListingController extends Controller
     public function destroy(string $id)
     {
         $listing = Listing::findOrFail($id);
+        $listing->delete();
+        return to_route('admin.listings.index')
+            ->with('success', 'Listing deleted successfully.');
+
 
     }
 }

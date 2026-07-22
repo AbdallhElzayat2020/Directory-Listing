@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Listing extends Model
 {
-    use  SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -86,5 +86,10 @@ class Listing extends Model
     public function schedules(): HasMany
     {
         return $this->hasMany(ListingSchedule::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

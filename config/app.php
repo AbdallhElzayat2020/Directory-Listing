@@ -70,6 +70,8 @@ return [
     |
     */
 
+//    'timezone' => 'Africa/Cairo',
+
     'timezone' => 'UTC',
 
     /*

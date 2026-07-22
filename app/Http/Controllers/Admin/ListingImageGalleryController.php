@@ -39,6 +39,7 @@ class ListingImageGalleryController extends Controller
 
         ]);
         $imagesPath = $this->uploadFiles($request, 'images', [], 'listing_images');
+
         foreach ($imagesPath as $imagePath) {
 
             $listing->images()->create([

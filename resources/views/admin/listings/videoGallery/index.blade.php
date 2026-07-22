@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Video Gallery</h4>
+                            <h4>Video Gallery For - {{$listing->title}}</h4>
                         </div>
                         <div class="card-body">
 
@@ -60,7 +60,7 @@
 
 
         <div class="section-body">
-            <h2 class="section-title">All Videos</h2>
+            <h2 class="section-title">All Videos For - {{$listing->title}}</h2>
 
             <div class="row">
 

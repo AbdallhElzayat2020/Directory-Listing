@@ -27,11 +27,23 @@ class ListingDataTable extends DataTable
             ->addColumn('Category', function (Listing $listing) {
                 return $listing->category->title;
             })
+            ->addColumn('thumbnail_image', function (Listing $listing) {
+                return view('admin.listings.datatable.thumbnail_image', ['listing' => $listing]);
+            })
             ->addColumn('Location', function (Listing $listing) {
                 return $listing->location->title;
             })
             ->addColumn('status', function (Listing $listing) {
                 return view('admin.listings.datatable.status', ['listing' => $listing]);
+            })
+            ->addColumn('Verified', function (Listing $listing) {
+                return view('admin.listings.datatable.is_verified', ['listing' => $listing]);
+            })
+            ->addColumn('is_featured', function (Listing $listing) {
+                return view('admin.listings.datatable.is_featured', ['listing' => $listing]);
+            })
+            ->addColumn('created_by', function (Listing $listing) {
+                return $listing->user->name;
             })
             ->addColumn('action', function (Listing $listing) {
                 return view('admin.listings.datatable.action', ['listing' => $listing]);
@@ -48,6 +60,7 @@ class ListingDataTable extends DataTable
             ->with([
                 'location',
                 'category',
+                'user'
             ]);
     }
 
@@ -80,10 +93,14 @@ class ListingDataTable extends DataTable
     {
         return [
             Column::make('id')->width(50),
+            Column::make('thumbnail_image'),
             Column::make('title'),
             Column::make('Category'),
             Column::make('Location'),
             Column::make('status'),
+            Column::make('Verified'),
+            Column::make('is_featured'),
+            Column::make('created_by'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
