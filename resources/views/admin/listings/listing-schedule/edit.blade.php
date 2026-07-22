@@ -62,29 +62,35 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Start Time <span class="text-danger">*</span></label>
-                                    <input type="time" name="start_time"
+                                    <input type="time"
+                                           name="start_time"
                                            class="form-control @error('start_time') is-invalid @enderror"
-                                           value="{{ old('start_time', $schedule->start_time) }}">
+                                           value="{{ old('start_time', $schedule->start_time) }}"
+                                           step="60">
                                     @error('start_time')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-lg-6">
 
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>End Time <span class="text-danger">*</span></label>
-                                    <input type="time" name="end_time"
+                                    <input type="time"
+                                           name="end_time"
                                            class="form-control @error('end_time') is-invalid @enderror"
-                                           value="{{ old('end_time', $schedule->end_time) }}">
+                                           value="{{ old('end_time', $schedule->end_time) }}"
+                                           step="60">
                                     @error('end_time')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -98,10 +104,27 @@
         </div>
     </section>
 
-    @push('scripts')
+    @push('js')
+
         <script>
-            $(document).ready(function() {
-                // Add any custom JavaScript here
+            document.addEventListener('DOMContentLoaded', function () {
+                const startTime = document.querySelector('input[name="start_time"]');
+                const endTime = document.querySelector('input[name="end_time"]');
+
+                function validateTime() {
+                    if (startTime.value && endTime.value) {
+                        if (startTime.value >= endTime.value) {
+                            endTime.setCustomValidity('End time must be after start time');
+                            endTime.classList.add('is-invalid');
+                        } else {
+                            endTime.setCustomValidity('');
+                            endTime.classList.remove('is-invalid');
+                        }
+                    }
+                }
+
+                startTime.addEventListener('change', validateTime);
+                endTime.addEventListener('change', validateTime);
             });
         </script>
     @endpush

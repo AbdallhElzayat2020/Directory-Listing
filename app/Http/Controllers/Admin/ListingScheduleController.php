@@ -10,6 +10,8 @@ use App\Models\Listing;
 use App\Models\ListingSchedule;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Database\QueryException;
+use Exception;
 
 class ListingScheduleController extends Controller
 {
@@ -26,23 +28,30 @@ class ListingScheduleController extends Controller
 
     public function store(StoreListingScheduleRequest $request, Listing $listing)
     {
-        $exists = ListingSchedule::where('listing_id', $listing->id)
-            ->where('day', $request->day)
-            ->where('status', 'active')
-            ->exists();
+        try {
+            $data = $request->validated();
 
-        if ($exists) {
+            $exists = ListingSchedule::hasActiveSchedule($listing->id, $data['day']);
+
+            if ($exists) {
+                return redirect()
+                    ->back()
+                    ->withInput()
+                    ->with('error', 'An active schedule already exists for ' . $data['day'] . '. Please deactivate the existing schedule first.');
+            }
+
+            $listing->schedules()->create($data);
+
+            return redirect()
+                ->route('admin.listings.schedules.index', $listing->id)
+                ->with('success', 'Schedule added successfully.');
+
+        } catch (Exception $e) {
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('error', 'An active schedule already exists for ' . $request->day . '. Please deactivate the existing schedule first.');
+                ->with('error', 'Error: ' . $e->getMessage());
         }
-
-        $listing->schedules()->create($request->validated());
-
-        return redirect()
-            ->route('admin.listings.schedules.index', $listing->id)
-            ->with('success', 'Schedule added successfully.');
     }
 
     public function edit(Listing $listing, ListingSchedule $schedule)
@@ -53,41 +62,62 @@ class ListingScheduleController extends Controller
 
     public function update(UpdateListingScheduleRequest $request, Listing $listing, ListingSchedule $schedule)
     {
-        if ($request->status == 'active') {
-            $exists = ListingSchedule::where('listing_id', $listing->id)
-                ->where('day', $request->day)
-                ->where('status', 'active')
-                ->where('id', '!=', $schedule->id)
-                ->exists();
+        try {
+            $data = $request->validated();
 
-            if ($exists) {
-                return redirect()
-                    ->back()
-                    ->withInput()
-                    ->with('error', 'An active schedule already exists for ' . $request->day . '. Please deactivate the existing schedule first.');
+            // التحقق الإضافي قبل التحديث
+            if ($data['status'] === 'active') {
+                $exists = ListingSchedule::hasActiveSchedule($listing->id, $data['day'], $schedule->id);
+
+                if ($exists) {
+                    return redirect()
+                        ->back()
+                        ->withInput()
+                        ->with('error', 'An active schedule already exists for ' . $data['day'] . '. Please deactivate the existing schedule first.');
+                }
             }
+
+            $schedule->update($data);
+
+            return redirect()
+                ->route('admin.listings.schedules.index', $listing->id)
+                ->with('success', 'Schedule updated successfully.');
+
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Error: ' . $e->getMessage());
         }
-
-        $schedule->update($request->validated());
-
-        return redirect()
-            ->route('admin.listings.schedules.index', $listing->id)
-            ->with('success', 'Schedule updated successfully.');
     }
 
     public function destroy(Listing $listing, ListingSchedule $schedule)
     {
-        $schedule->delete();
+        try {
+            $schedule->delete();
 
-        if (request()->ajax()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Schedule deleted successfully.'
-            ]);
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Schedule deleted successfully.'
+                ]);
+            }
+
+            return redirect()
+                ->route('admin.listings.schedules.index', $listing->id)
+                ->with('success', 'Schedule deleted successfully.');
+
+        } catch (Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error: ' . $e->getMessage()
+                ], 500);
+            }
+
+            return redirect()
+                ->back()
+                ->with('error', 'Error: ' . $e->getMessage());
         }
-
-        return redirect()
-            ->route('admin.listings.schedules.index', $listing->id)
-            ->with('success', 'Schedule deleted successfully.');
     }
 }

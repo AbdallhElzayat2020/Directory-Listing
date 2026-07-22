@@ -121,3 +121,28 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startTime = document.querySelector('input[name="start_time"]');
+            const endTime = document.querySelector('input[name="end_time"]');
+
+            function validateTime() {
+                if (startTime.value && endTime.value) {
+                    if (startTime.value >= endTime.value) {
+                        endTime.setCustomValidity('End time must be after start time');
+                        endTime.classList.add('is-invalid');
+                    } else {
+                        endTime.setCustomValidity('');
+                        endTime.classList.remove('is-invalid');
+                    }
+                }
+            }
+
+            startTime.addEventListener('change', validateTime);
+            endTime.addEventListener('change', validateTime);
+        });
+    </script>
+@endpush

@@ -7,19 +7,11 @@ use Illuminate\Validation\Rule;
 
 class UpdateListingScheduleRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         $listingId = $this->route('listing')->id;
@@ -47,7 +39,7 @@ class UpdateListingScheduleRequest extends FormRequest
             'day.in' => 'Please select a valid day.',
             'day.unique' => 'An active schedule already exists for this day.',
             'start_time.required' => 'Start time is required.',
-            'start_time.date_format' => 'Please enter a valid time format.',
+            'start_time.date_format' => 'Please enter a valid time format (HH:MM).',
             'end_time.required' => 'End time is required.',
             'end_time.after' => 'End time must be after start time.',
             'status.required' => 'Status is required.',

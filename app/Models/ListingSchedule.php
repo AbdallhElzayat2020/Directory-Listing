@@ -30,35 +30,56 @@ class ListingSchedule extends Model
     }
 
 
+    public function scopeByListing($query, $listingId)
+    {
+        return $query->where('listing_id', $listingId);
+    }
+
+    // التحقق من وجود موعد نشط لنفس اليوم
+    public static function hasActiveSchedule($listingId, $day, $excludeId = null)
+    {
+        $query = self::where('listing_id', $listingId)
+            ->where('day', $day)
+            ->where('status', 'active');
+
+        if ($excludeId) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        return $query->exists();
+    }
+
+    // الـ Boot Events المعدلة
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function ($schedule) {
-            // منع إضافة موعد نشط لنفس اليوم
-            if ($schedule->status == 'active') {
-                $existing = ListingSchedule::where('listing_id', $schedule->listing_id)
+            if ($schedule->status === 'active') {
+                $existing = self::where('listing_id', $schedule->listing_id)
                     ->where('day', $schedule->day)
                     ->where('status', 'active')
                     ->exists();
 
                 if ($existing) {
-                    throw new \Exception('An active schedule already exists for this day.');
+                    return redirect()->back()
+                        ->with('error', 'An active schedule already exists for ' . $schedule->day . '.');
                 }
             }
         });
 
         static::updating(function ($schedule) {
-            // منع تحديث موعد ليوم يوجد فيه موعد نشط آخر
-            if ($schedule->status == 'active') {
-                $existing = ListingSchedule::where('listing_id', $schedule->listing_id)
+            // التحقق فقط إذا كان الحالة active
+            if ($schedule->status === 'active') {
+                $existing = self::where('listing_id', $schedule->listing_id)
                     ->where('day', $schedule->day)
                     ->where('status', 'active')
                     ->where('id', '!=', $schedule->id)
                     ->exists();
 
                 if ($existing) {
-                    throw new \Exception('An active schedule already exists for this day.');
+                    // إرجاع خطأ برسالة واضحة
+                    throw new \Exception('An active schedule already exists for ' . $schedule->day . '.');
                 }
             }
         });
