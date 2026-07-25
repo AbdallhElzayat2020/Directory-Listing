@@ -1,29 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use App\Models\ListingImageGallery;
 use App\Traits\FileHandler;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\View\View;
 
-class ListingImageGalleryController extends Controller
+class AgentListingImgGalleryController extends Controller
 {
     use FileHandler;
 
     /**
      * Display a listing of the resource.
      */
-    public function index(Listing $listing): View
+    public function index(Listing $listing)
     {
         $images = $listing->images;
-        $user = Auth::user();
+        $user = auth()->user();
         return view('frontend.dashboard.listings.imageGallery.index', compact('listing', 'images', 'user'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,9 +52,6 @@ class ListingImageGalleryController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Listing $listing, ListingImageGallery $image)
     {
         try {

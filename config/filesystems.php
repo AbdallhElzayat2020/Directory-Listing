@@ -59,6 +59,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'user_listings' => [
+            'driver' => 'local',
+            'root' => public_path('user_listings'),
+            'url' => env('APP_URL') . '/user_listings',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'listings' => [
             'driver' => 'local',
             'root' => public_path('listings'),

@@ -38,6 +38,7 @@ class Listing extends Model
         'attachments',
         'expired_date',
         'status',
+        'is_approved',
         'is_verified',
         'is_featured',
         'seo_title',

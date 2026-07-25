@@ -1,19 +1,21 @@
 <?php
 
 
-use App\Http\Controllers\Admin\AmenityController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ListingController;
-use App\Http\Controllers\Admin\ListingImageGalleryController;
-use App\Http\Controllers\Admin\ListingScheduleController;
-use App\Http\Controllers\Admin\ListingVideoController;
-use App\Http\Controllers\Admin\LocationController;
-use App\Http\Controllers\Admin\HeroController;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\{
+    AmenityController,
+    CategoryController,
+    ListingController,
+    ListingImageGalleryController,
+    ListingScheduleController,
+    ListingVideoController,
+    LocationController,
+    HeroController,
+    ProfileController,
+    DashboardController,
+    PasswordController,
+};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\PasswordController;
 
 /* --------------------- public Routes --------------------- */
 
@@ -71,7 +73,6 @@ Route::group(['prefix' => 'admin',
         Route::resource('listings', ListingController::class);
 
         /* Listing Image Gallery Routes */
-
         Route::get('/listings/{listing}/gallery-images', [ListingImageGalleryController::class, 'index'])
             ->name('listings.gallery.index');
 
