@@ -29,6 +29,7 @@ class AgentListingController extends Controller
     public function index(AgentListingDataTable $dataTable): View|JsonResponse
     {
         $user = auth()->user();
+
         return $dataTable->render('frontend.dashboard.listings.index', [
             'user' => $user
         ]);

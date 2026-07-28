@@ -18,6 +18,13 @@ class AgentListingScheduleController extends Controller
     public function index(AgentListingScheduleDataTable $dataTable, Listing $listing)
     {
         $user = auth()->user();
+
+        if ($listing->user_id !== $user->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+//        $this->authorize('view', $listing);
+
         return $dataTable->render('frontend.dashboard.listings.listing-schedule.index', compact('listing', 'user'));
     }
 
@@ -77,6 +84,12 @@ class AgentListingScheduleController extends Controller
     {
         $user = auth()->user();
         $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        if ($listing->user_id !== $user->id) {
+            abort(403, 'Unauthorized action.');
+        }
+//        $this->authorize('update', $listing);
+
         return view('frontend.dashboard.listings.listing-schedule.edit', compact('listing', 'user', 'schedule', 'days'));
     }
 
@@ -85,10 +98,13 @@ class AgentListingScheduleController extends Controller
      */
     public function update(UpdateListingScheduleRequest $request, Listing $listing, ListingSchedule $schedule)
     {
+        if ($listing->user_id !== auth()->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
         try {
             $data = $request->validated();
 
-            // التحقق الإضافي قبل التحديث
+            // التقق الإضافي قبل التحديث
             if ($data['status'] === 'active') {
                 $exists = ListingSchedule::hasActiveSchedule($listing->id, $data['day'], $schedule->id);
 
@@ -119,6 +135,9 @@ class AgentListingScheduleController extends Controller
      */
     public function destroy(Listing $listing, ListingSchedule $schedule)
     {
+        if ($listing->user_id !== auth()->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
         try {
             $schedule->delete();
 

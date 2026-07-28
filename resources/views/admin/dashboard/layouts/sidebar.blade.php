@@ -56,6 +56,9 @@
                     <li class="{{setSidebarActive(['admin.listings.*'])}}">
                         <a class="nav-link" href="{{ route('admin.listings.index') }}">Listings</a>
                     </li>
+                    <li class="{{setSidebarActive(['admin.listings.pending.index'])}}">
+                        <a class="nav-link" href="{{ route('admin.listings.pending.index') }}">Pending Listings</a>
+                    </li>
                 </ul>
             </li>
 

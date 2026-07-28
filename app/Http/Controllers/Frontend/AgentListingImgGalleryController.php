@@ -19,6 +19,11 @@ class AgentListingImgGalleryController extends Controller
     {
         $images = $listing->images;
         $user = auth()->user();
+
+        if ($listing->user_id !== $user->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('frontend.dashboard.listings.imageGallery.index', compact('listing', 'images', 'user'));
     }
 
@@ -54,8 +59,10 @@ class AgentListingImgGalleryController extends Controller
 
     public function destroy(Listing $listing, ListingImageGallery $image)
     {
+        if ($listing->user_id !== auth()->user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
         try {
-
             $this->deleteFile($image->image, 'listing_images');
 
             $image->delete();

@@ -210,6 +210,8 @@ class ListingController extends Controller
 
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      */
@@ -223,4 +225,6 @@ class ListingController extends Controller
 
 
     }
+
+
 }

@@ -1,19 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Admin\{
-    AmenityController,
-    CategoryController,
-    ListingController,
-    ListingImageGalleryController,
-    ListingScheduleController,
-    ListingVideoController,
-    LocationController,
-    HeroController,
-    ProfileController,
-    DashboardController,
-    PasswordController,
-};
+use App\Http\Controllers\Admin\{AmenityController, CategoryController, ListingController, ListingImageGalleryController, ListingScheduleController, ListingVideoController, LocationController, HeroController, PendingListingController, ProfileController, DashboardController, PasswordController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 
@@ -69,8 +57,16 @@ Route::group(['prefix' => 'admin',
         /* Amenities Routes */
         Route::resource('amenities', AmenityController::class);
 
-        /* Listings Routes */
+        /*  Listings Routes */
+
         Route::resource('listings', ListingController::class);
+
+        /* Pending Listings Routes */
+        Route::get('listing/pending', [PendingListingController::class, 'index'])
+            ->name('listings.pending.index');
+        Route::post('listing/pending', [PendingListingController::class, 'updateStatus'])
+            ->name('listings.update-status');
+
 
         /* Listing Image Gallery Routes */
         Route::get('/listings/{listing}/gallery-images', [ListingImageGalleryController::class, 'index'])

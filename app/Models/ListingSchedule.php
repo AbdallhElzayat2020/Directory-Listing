@@ -49,7 +49,7 @@ class ListingSchedule extends Model
         return $query->exists();
     }
 
-    // الـ Boot Events المعدلة
+
     protected static function boot()
     {
         parent::boot();
