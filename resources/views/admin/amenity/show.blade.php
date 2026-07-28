@@ -1,4 +1,4 @@
-@extends('dashboard.layouts.master')
+@extends('admin.dashboard.layouts.master')
 
 @section('dashboard_title', 'Amenity Details')
 
