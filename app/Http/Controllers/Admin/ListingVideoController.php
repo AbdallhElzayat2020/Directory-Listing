@@ -33,7 +33,6 @@ class ListingVideoController extends Controller
 
         $listing->videos()->create([
             'video_url' => $videoId,
-            'platform' => $request->platform ?? 'youtube',
         ]);
         return redirect()->back()->with('success', 'Video added successfully.');
     }

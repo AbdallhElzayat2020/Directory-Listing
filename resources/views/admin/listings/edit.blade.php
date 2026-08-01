@@ -291,7 +291,7 @@
                                             {{--  google_map_embed_code Link --}}
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label>Google Map Embed Code</label>
+                                                    <label>Google Map Embed Code <sapn class="text-danger">1000 * 400</sapn> </label>
                                                     <textarea name="google_map_embed_code" rows="2" class="form-control"
                                                               placeholder="<iframe src='...'></iframe>">{{ old('google_map_embed_code',$listing->google_map_embed_code) }}</textarea>
                                                     @error('google_map_embed_code')

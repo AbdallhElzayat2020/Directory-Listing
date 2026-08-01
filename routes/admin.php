@@ -7,10 +7,12 @@ use App\Http\Controllers\Admin\Auth\AdminAuthController;
 
 /* --------------------- public Routes --------------------- */
 
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-    'middleware' => 'guest'],
+Route::group(
+    [
+        'prefix' => 'admin',
+        'as' => 'admin.',
+        'middleware' => 'guest'
+    ],
     function () {
 
         /* ------- Login Route ------- */
@@ -19,13 +21,17 @@ Route::group([
 
         /* ------- forget-password Route ------- */
         Route::get('forget-password', [AdminAuthController::class, 'passwordRequest'])->name('password.request');
-    });
+    }
+);
 
 
 /* --------------------- Protected Routes --------------------- */
-Route::group(['prefix' => 'admin',
-    'as' => 'admin.',
-    'middleware' => ['auth', 'user.type:admin']],
+Route::group(
+    [
+        'prefix' => 'admin',
+        'as' => 'admin.',
+        'middleware' => ['auth', 'user.type:admin']
+    ],
     function () {
 
         /*  --- dashboard Route --- */
@@ -62,10 +68,8 @@ Route::group(['prefix' => 'admin',
         Route::resource('listings', ListingController::class);
 
         /* Pending Listings Routes */
-        Route::get('listing/pending', [PendingListingController::class, 'index'])
-            ->name('listings.pending.index');
-        Route::post('listing/pending', [PendingListingController::class, 'updateStatus'])
-            ->name('listings.update-status');
+        Route::get('listing/pending', [PendingListingController::class, 'index'])->name('listings.pending.index');
+        Route::post('listing/pending', [PendingListingController::class, 'updateStatus'])->name('listings.update-status');
 
 
         /* Listing Image Gallery Routes */
@@ -102,5 +106,5 @@ Route::group(['prefix' => 'admin',
                 Route::put('/{schedule}', 'update')->name('update');
                 Route::delete('/{schedule}', 'destroy')->name('destroy');
             });
-
-    });
+    }
+);

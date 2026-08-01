@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\DataTables\AgentListingDataTable;
 use App\DataTables\AgentListingScheduleDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Schedule\StoreListingScheduleRequest;
