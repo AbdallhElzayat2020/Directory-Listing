@@ -1,7 +1,22 @@
 <?php
 
 
-use App\Http\Controllers\Admin\{AmenityController, CategoryController, ListingController, ListingImageGalleryController, ListingScheduleController, ListingVideoController, LocationController, HeroController, PendingListingController, ProfileController, DashboardController, PasswordController};
+use App\Http\Controllers\Admin\{AmenityController,
+    CategoryController,
+    ListingController,
+    ListingImageGalleryController,
+    ListingScheduleController,
+    ListingVideoController,
+    LocationController,
+    HeroController,
+    PackageController,
+    PackageFeatureController,
+    PendingListingController,
+    ProfileController,
+    DashboardController,
+    PasswordController,
+    SettingController
+};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 
@@ -106,5 +121,19 @@ Route::group(
                 Route::put('/{schedule}', 'update')->name('update');
                 Route::delete('/{schedule}', 'destroy')->name('destroy');
             });
+
+        /* Package & PackagesFeatures Routes */
+        Route::get('packages/{package}/features', [PackageFeatureController::class, 'packageFeatures'])
+            ->name('packages.features');
+
+        Route::get('packages/{package}/features/create', [PackageFeatureController::class, 'createForPackage'])
+            ->name('packages.features.create');
+
+        Route::resource('packages', PackageController::class);
+        Route::resource('package-features', PackageFeatureController::class);
+
+        /* Settings Routes */
+        Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::post('general-settings', [SettingController::class, 'update'])->name('settings.update');
     }
 );

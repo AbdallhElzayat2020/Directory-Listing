@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateSettingRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 

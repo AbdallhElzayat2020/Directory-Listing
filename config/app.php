@@ -70,7 +70,7 @@ return [
     |
     */
 
-//    'timezone' => 'Africa/Cairo',
+    //    'timezone' => 'Africa/Cairo',
 
     'timezone' => 'UTC',
 
@@ -172,6 +172,12 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Yajra\DataTables\DataTablesServiceProvider::class,
+
+
+        // settings Provider
+        App\Providers\SettingServiceProvider::class,
+
+
     ])->toArray(),
 
     /*

@@ -4,35 +4,15 @@ use App\Http\Controllers\Frontend\AgentListingController;
 use App\Http\Controllers\Frontend\AgentListingImgGalleryController;
 use App\Http\Controllers\Frontend\AgentListingScheduleController;
 use App\Http\Controllers\Frontend\AgentListingVideoGalleryController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\ListingController;
+use App\Http\Controllers\Frontend\PackageController;
 use App\Http\Controllers\Frontend\PasswordController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
-/*
- * --------- install breeze for auth ----------
- * composer require laravel/breeze:^1.28 --dev
- * php artisan breeze:install
- * npm install
- * npm run dev
- *
- * ---------- install laravel flasher for flash messages ----------
- * composer require php-flasher/flasher-laravel:^1.15
- * */
 
 /* --------------------- public Routes --------------------- */
 
@@ -43,6 +23,11 @@ Route::get('listing-menu/{slug}', [ListingController::class, 'listings'])->name(
 Route::get('listing-details/{slug}', [ListingController::class, 'viewDetails'])->name('listing-details');
 Route::get('listing-modal/{id}', [ListingController::class, 'showModal'])->name('listing.show-modal');
 Route::get('all-listings', [ListingController::class, 'viewAll'])->name('all-listings');
+Route::get('packages', [PackageController::class, 'index'])->name('packages');
+Route::get('checkout/{slug}/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
+
+
+
 
 
 /* --------------------- Protected Routes --------------------- */
