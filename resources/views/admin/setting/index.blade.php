@@ -30,29 +30,29 @@
                                     <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#home4"
-                                                role="tab" aria-controls="home" aria-selected="true">General
+                                               role="tab" aria-controls="home" aria-selected="true">General
                                                 Settings</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#profile4"
-                                                role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                                               role="tab" aria-controls="profile" aria-selected="false">Profile</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4"
-                                                role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                                               role="tab" aria-controls="contact" aria-selected="false">Contact</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-10">
                                     <div class="tab-content no-padding" id="myTab2Content">
                                         <div class="tab-pane fade show active" id="home4" role="tabpanel"
-                                            aria-labelledby="home-tab4">
+                                             aria-labelledby="home-tab4">
 
 
                                             <div class="card border">
                                                 <div class="card-body">
 
-                                                    <form action="{{ route('admin.settings.update') }}" method="post">
+                                                    <form action="{{ route('admin.general-settings.update') }}" method="post">
                                                         @csrf
 
                                                         <div class="row">
@@ -61,8 +61,8 @@
                                                                 <div class="form-group">
                                                                     <label for="">Site Name</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="site_name"
-                                                                        value="{{ old('site_name', config('settings.site_name')) }}">
+                                                                           name="site_name"
+                                                                           value="{{ old('site_name', config('settings.site_name')) }}">
                                                                 </div>
                                                             </div>
 
@@ -70,24 +70,24 @@
                                                                 <div class="form-group">
                                                                     <label for="">Site Email</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="site_email"
-                                                                        value="{{ old('site_email', config('settings.site_email')) }}">
+                                                                           name="site_email"
+                                                                           value="{{ old('site_email', config('settings.site_email')) }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="">Site Phone</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="site_phone"
-                                                                        value="{{ old('site_phone', config('settings.site_phone')) }}">
+                                                                           name="site_phone"
+                                                                           value="{{ old('site_phone', config('settings.site_phone')) }}">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="">Site Default Currency </label>
                                                                     <select name="site_default_currency"
-                                                                        id="site_default_currency"
-                                                                        class="form-control select2">
+                                                                            id="site_default_currency"
+                                                                            class="form-control select2">
                                                                         @foreach (config('currency.currency_list') as $key => $currency)
                                                                             <option value="{{ $currency }}"
                                                                                 @selected($currency === config('settings.site_default_currency'))>
@@ -102,8 +102,8 @@
                                                                 <div class="form-group">
                                                                     <label for="">Site Currency Icon</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="site_currency_icon"
-                                                                        value="{{ old('site_currency_icon', config('settings.site_currency_icon')) }}">
+                                                                           name="site_currency_icon"
+                                                                           value="{{ old('site_currency_icon', config('settings.site_currency_icon')) }}">
                                                                 </div>
                                                             </div>
 
@@ -111,7 +111,7 @@
                                                                 <div class="form-group">
                                                                     <label for="">Site Currency Position</label>
                                                                     <select name="site_currency_position"
-                                                                        id="site_currency_position" class="form-control">
+                                                                            id="site_currency_position" class="form-control">
                                                                         <option value="left"
                                                                             @selected('left' === config('settings.site_currency_position'))>Left
                                                                         </option>

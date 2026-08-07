@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\{AmenityController,
     HeroController,
     PackageController,
     PackageFeatureController,
+    PaymentSettingController,
     PendingListingController,
     ProfileController,
     DashboardController,
@@ -134,6 +135,14 @@ Route::group(
 
         /* Settings Routes */
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
-        Route::post('general-settings', [SettingController::class, 'update'])->name('settings.update');
+        Route::post('general-settings', [SettingController::class, 'update'])->name('general-settings.update');
+
+        /* Payment Settings Routes */
+        Route::get('payment-settings', [PaymentSettingController::class, 'index'])
+            ->name('payment-settings.index');
+
+        Route::post('payment-settings', [PaymentSettingController::class, 'paypalSetting'])
+            ->name('payment-settings.update');
+
     }
 );

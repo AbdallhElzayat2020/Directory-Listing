@@ -63,7 +63,7 @@
 
             {{--  Packages Route  --}}
             <li class="menu-header">Manage Packages</li>
-            <li class="dropdown {{setSidebarActive(['admin.packages.*','admin.package-features.*'])}}">
+            <li class="dropdown {{setSidebarActive(['admin.packages.*','admin.package-features.*','admin.payment-settings.*'])}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-columns"> </i> <span>Manage Packages</span>
                 </a>
@@ -73,8 +73,14 @@
                     <li class="{{setSidebarActive(['admin.packages.*'])}}">
                         <a class="nav-link " href="{{ route('admin.packages.index') }}">Packages</a>
                     </li>
+                    {{-- Package Features  --}}
                     <li class="{{setSidebarActive(['admin.package-features.*'])}}">
                         <a class="nav-link " href="{{ route('admin.package-features.index') }}">Package Features</a>
+                    </li>
+
+                    {{-- Payment Settings  --}}
+                    <li class="{{setSidebarActive(['admin.payment-settings.*'])}}">
+                        <a class="nav-link " href="{{ route('admin.payment-settings.index') }}">Payment Settings</a>
                     </li>
 
                 </ul>

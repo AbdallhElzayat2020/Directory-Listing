@@ -10,7 +10,7 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::active()->get();
+        $packages = Package::with('features')->active()->get();
         return view('frontend.pages.packages', [
             'packages' => $packages
         ]);
