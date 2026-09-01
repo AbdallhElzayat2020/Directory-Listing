@@ -2,27 +2,27 @@
 
 namespace App\Services;
 
-use App\Models\Setting;
+use App\Models\PaymentSetting;
 use Illuminate\Support\Facades\Cache;
 
-class SettingService
+class PaymentSettingService
 {
 
     function getSettings()
     {
-        return Cache::rememberForever('settings', function () {
-            return Setting::pluck('value', 'key')->toArray();
+        return Cache::rememberForever('payment', function () {
+            return PaymentSetting::pluck('value', 'key')->toArray();  // payment.paypal_status from any file from config->  config('payment.paypal_status')
         });
     }
 
     function setGlobalSettings()
     {
         $settings = $this->getSettings();
-        config()->set('settings', $settings); // config('settings.site_name');
+        config()->set('payment', $settings); // config('settings.site_name');
     }
 
     function clearCachedSettings()
     {
-        Cache::forget('settings');
+        Cache::forget('payment');
     }
 }

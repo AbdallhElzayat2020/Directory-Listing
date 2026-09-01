@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,7 @@ return [
 
         // settings Provider
         App\Providers\SettingServiceProvider::class,
+        App\Providers\PaymentSettingServiceProvider::class,
 
 
     ])->toArray(),

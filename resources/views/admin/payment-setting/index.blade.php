@@ -46,7 +46,9 @@
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-10">
                                     <div class="tab-content no-padding" id="myTab2Content">
+
                                         @include('admin.payment-setting.sections.paypal-settings')
+
                                         <div class="tab-pane fade" id="profile4" role="tabpanel"
                                              aria-labelledby="profile-tab4">
                                             Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac

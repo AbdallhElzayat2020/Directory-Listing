@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\ListingController;
 use App\Http\Controllers\Frontend\PackageController;
 use App\Http\Controllers\Frontend\PasswordController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,6 @@ Route::get('listing-modal/{id}', [ListingController::class, 'showModal'])->name(
 Route::get('all-listings', [ListingController::class, 'viewAll'])->name('all-listings');
 Route::get('packages', [PackageController::class, 'index'])->name('packages');
 Route::get('checkout/{slug}/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
-
-
-
 
 
 /* --------------------- Protected Routes --------------------- */
@@ -83,20 +81,18 @@ Route::group([
         });
 });
 
+/* -------- Payment Routes --------  */
 
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function () {
 
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])
-//        ->name('profile.edit');
-//
-//    Route::patch('/profile', [ProfileController::class, 'update'])
-//        ->name('profile.update');
-//
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])
-//        ->name('profile.destroy');
-//});
+    Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+    Route::get('payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
+
+
+    Route::get('paypal/payment', [PaymentController::class, 'payWithPaypal'])->name('paypal.payment.index');
+    Route::get('paypal/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.payment.success');
+    Route::get('paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.payment.cancel');
+});
+
 
 require __DIR__ . '/auth.php';
