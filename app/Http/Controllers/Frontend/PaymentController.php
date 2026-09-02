@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Srmklive\PayPal\Facades\PayPal;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class PaymentController extends Controller
 {
@@ -24,8 +26,7 @@ class PaymentController extends Controller
         return view('frontend.pages.payment-cancel');
     }
 
-
-    public function paypalAmount(): int
+    public function payAmount(): int
     {
         $packageId = Session::get('selected_package_id');
         $package = Package::findOrFail($packageId);
@@ -62,7 +63,7 @@ class PaymentController extends Controller
         $provider->getAccessToken();
 
         // get price
-        $totalAmount = $this->paypalAmount() * config('payment.paypal_currency_rate');
+        $totalAmount = $this->payAmount() * config('payment.paypal_currency_rate');
 
         $response = $provider->createOrder([
             'intent' => 'CAPTURE', //"AUTHORIZE"
@@ -122,5 +123,68 @@ class PaymentController extends Controller
     public function paypalCancel()
     {
         return to_route('payment.cancel')->withErrors(['error' => 'You have canceled the payment.']);
+    }
+
+
+    /* Pay with Stripe */
+
+    public function payWithStripe()
+    {
+        // set api key
+        Stripe::setApiKey(config('payment.stripe_secret_key'));
+
+        // create a new checkout session
+        $totalPaymentAmount = round(($this->payAmount() * config('payment.stripe_currency_rate'))) * 100; // stripe accepts cents
+
+        $response = StripeSession::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => config('payment.stripe_currency'),
+                        'product_data' => [
+                            'name' => 'Package',
+                        ],
+                        'unit_amount' => (int)($totalPaymentAmount),
+                    ],
+                    'quantity' => 1,
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => route('stripe.payment.success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('stripe.payment.cancel'),
+        ]);
+
+        return redirect()->away($response->url);
+
+    }
+
+    public function stripeSuccess(Request $request)
+    {
+        $sessionId = $request->session_id;
+        // set api key
+        Stripe::setApiKey(config('payment.stripe_secret_key'));
+
+        $response = StripeSession::retrieve($sessionId);
+
+        if ($response->payment_status === 'paid') {
+            // create Order
+            $paymentInfo = [
+                'transaction_id' => $response->payment_intent,
+                'payment_method' => 'Stripe',
+                'paid_amount' => $response->amount_total / 100, // convert cents to dollars
+                'paid_currency' => $response->currency,
+                'payment_status' => 'completed',
+            ];
+
+            CreateOrder::dispatch($paymentInfo);
+            return to_route('payment.success');
+        } else {
+            return to_route('payment.cancel')->withErrors(['error' => 'Payment failed.']);
+        }
+    }
+
+    public function stripeCancel()
+    {
+        return to_route('payment.cancel')->withErrors(['error' => 'Payment failed.']);
     }
 }
