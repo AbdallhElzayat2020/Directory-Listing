@@ -29,4 +29,27 @@ class PaymentSettingController extends Controller
 
         return redirect()->back()->with('success', 'updated successfully.');
     }
+
+    public function stripeSetting(Request $request, PaymentSettingService $paymentSettingService)
+    {
+        $validatedData = $request->validate([
+            'stripe_status' => ['required', 'in:active,inactive'],
+            'stripe_country' => ['required'],
+            'stripe_currency' => ['required'],
+            'stripe_currency_rate' => ['required'],
+            'stripe_key' => ['required'],
+            'stripe_secret_key' => ['required'],
+        ]);
+
+        foreach ($validatedData as $key => $value) {
+            PaymentSetting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $paymentSettingService->clearCachedSettings();
+
+        return redirect()->back()->with('success', 'updated successfully.');
+    }
 }

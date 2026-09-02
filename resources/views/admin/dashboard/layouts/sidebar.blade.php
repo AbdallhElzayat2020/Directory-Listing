@@ -80,7 +80,7 @@
 
                     {{-- Payment Settings  --}}
                     <li class="{{setSidebarActive(['admin.payment-settings.*'])}}">
-                        <a class="nav-link " href="{{ route('admin.payment-settings.index') }}">Payment Settings</a>
+                        <a class="nav-link " href="{{ route('admin.paypal-settings.index') }}">Payment Settings</a>
                     </li>
 
                 </ul>

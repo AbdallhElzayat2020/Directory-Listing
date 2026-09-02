@@ -30,17 +30,19 @@
                                     <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#home4"
-                                               role="tab" aria-controls="home" aria-selected="true">
+                                                role="tab" aria-controls="home" aria-selected="true">
                                                 Paypal Setting
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#profile4"
-                                               role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                                                role="tab" aria-controls="profile" aria-selected="false">
+                                                Stripe Setting
+                                            </a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4"
-                                               role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                                                role="tab" aria-controls="contact" aria-selected="false">Contact</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -49,18 +51,10 @@
 
                                         @include('admin.payment-setting.sections.paypal-settings')
 
-                                        <div class="tab-pane fade" id="profile4" role="tabpanel"
-                                             aria-labelledby="profile-tab4">
-                                            Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac
-                                            efficitur est lobortis quis. Nullam lacinia metus erat, sed fermentum justo
-                                            rutrum ultrices. Proin quis iaculis tellus. Etiam ac vehicula eros, pharetra
-                                            consectetur dui.
-                                            Aliquam convallis neque eget tellus efficitur, eget maximus massa imperdiet.
-                                            Morbi a mattis velit. Donec hendrerit venenatis justo, eget scelerisque tellus
-                                            pharetra a.
-                                        </div>
+                                        @include('admin.payment-setting.sections.stripe-settings')
+
                                         <div class="tab-pane fade" id="contact4" role="tabpanel"
-                                             aria-labelledby="contact-tab4">
+                                            aria-labelledby="contact-tab4">
                                             Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin
                                             ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque
                                             fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius
@@ -79,3 +73,27 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            // Store active tab on tab change and adjust select2 if needed
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                var target = $(e.target).attr('href');
+                sessionStorage.setItem('payment_setting_active_tab', target);
+
+                if (jQuery().select2) {
+                    $('.select2').select2({
+                        width: '100%'
+                    });
+                }
+            });
+
+            // Restore active tab if previously saved
+            var activeTab = sessionStorage.getItem('payment_setting_active_tab');
+            if (activeTab && $(activeTab).length) {
+                $('#myTab4 a[href="' + activeTab + '"]').tab('show');
+            }
+        });
+    </script>
+@endpush

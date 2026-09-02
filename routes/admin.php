@@ -137,12 +137,16 @@ Route::group(
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('general-settings', [SettingController::class, 'update'])->name('general-settings.update');
 
-        /* Payment Settings Routes */
-        Route::get('payment-settings', [PaymentSettingController::class, 'index'])
-            ->name('payment-settings.index');
+        /* PayPal Settings Routes */
+        Route::get('paypal-settings', [PaymentSettingController::class, 'index'])
+            ->name('paypal-settings.index');
 
         Route::post('payment-settings', [PaymentSettingController::class, 'paypalSetting'])
             ->name('payment-settings.update');
+
+        /* Stripe Settings Routes */
+        Route::post('stripe-settings', [PaymentSettingController::class, 'stripeSetting'])
+            ->name('stripe-settings.update');
 
     }
 );
