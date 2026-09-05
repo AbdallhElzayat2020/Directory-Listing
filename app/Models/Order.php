@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
@@ -19,4 +20,21 @@ class Order extends Model
         'paid_currency',
         'purchase_date',
     ];
+
+    /* relationships */
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function package(): BelongsTo
+    {
+        return $this->belongsTo(Package::class);
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->created_at->format('d M Y');
+    }
 }

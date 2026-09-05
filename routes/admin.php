@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{AmenityController,
     ListingVideoController,
     LocationController,
     HeroController,
+    OrderController,
     PackageController,
     PackageFeatureController,
     PaymentSettingController,
@@ -132,6 +133,10 @@ Route::group(
 
         Route::resource('packages', PackageController::class);
         Route::resource('package-features', PackageFeatureController::class);
+
+        /* Order Routes */
+        Route::resource('orders', OrderController::class);
+
 
         /* Settings Routes */
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
