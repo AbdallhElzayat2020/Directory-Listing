@@ -138,6 +138,8 @@ Route::group(
         Route::resource('orders', OrderController::class);
 
 
+
+
         /* Settings Routes */
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('general-settings', [SettingController::class, 'update'])->name('general-settings.update');

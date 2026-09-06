@@ -1,6 +1,6 @@
 @extends('admin.dashboard.layouts.master')
 
-@section('dashboard_title','Order Details')
+@section('dashboard_title','Order-Details')
 
 @section('content')
     <section class="section">

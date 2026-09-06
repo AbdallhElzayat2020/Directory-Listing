@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\AgentListingController;
 use App\Http\Controllers\Frontend\AgentListingImgGalleryController;
 use App\Http\Controllers\Frontend\AgentListingScheduleController;
@@ -79,15 +80,18 @@ Route::group([
             Route::put('/{schedule}', 'update')->name('update');
             Route::delete('/{schedule}', 'destroy')->name('destroy');
         });
+
+    /* Orders Routes */
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+
 });
 
 /* -------- Payment Routes --------  */
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     Route::get('payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
-
 
 
     /* Paypal routes */
@@ -101,6 +105,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.payment.cancel');
 
 });
-
+// php artisan make:policy PostPolicy --model=Post
 
 require __DIR__ . '/auth.php';
