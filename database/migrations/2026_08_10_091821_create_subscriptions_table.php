@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate();
             $table->foreignId('package_id')->constrained('packages');
-            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->timestamp('purchase_date');
             $table->timestamp('expire_date')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');

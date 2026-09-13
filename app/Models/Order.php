@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
+
     protected $fillable = [
         'order_id',
         'transaction_id',
@@ -30,11 +32,11 @@ class Order extends Model
 
     public function package(): BelongsTo
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsTo(Package::class)->withTrashed();
     }
 
-    public function getCreatedAt()
+    public function subscription(): HasOne
     {
-        return $this->created_at->format('d M Y');
+        return $this->hasOne(Subscription::class);
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Package extends Model
 {
-    use SoftDeletes;
+//    use SoftDeletes;
 
     protected $fillable = [
         'package_type',
@@ -44,6 +44,12 @@ class Package extends Model
 
     public function features(): HasMany
     {
-        return $this->hasMany(PackageFeature::class,'package_id','id');
+        return $this->hasMany(PackageFeature::class, 'package_id', 'id');
     }
+
+//    public function subscriptions(): HasMany
+//    {
+//        return $this->hasMany(Subscription::class, 'package_id', 'id');
+//    }
+
 }

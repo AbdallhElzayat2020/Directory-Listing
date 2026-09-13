@@ -34,9 +34,7 @@ class AgentListingDataTable extends DataTable
             ->addColumn('Approved', function (Listing $listing) {
                 return view('frontend.dashboard.listings.datatable.is_approved', ['listing' => $listing]);
             })
-            ->addColumn('Verified', function (Listing $listing) {
-                return view('frontend.dashboard.listings.datatable.is_verified', ['listing' => $listing]);
-            })
+
             ->addColumn('action', function (Listing $listing) {
                 return view('frontend.dashboard.listings.datatable.action', ['listing' => $listing]);
             })
@@ -86,7 +84,6 @@ class AgentListingDataTable extends DataTable
             Column::make('Category'),
             Column::make('Location'),
             Column::make('status'),
-            Column::make('Verified'),
             Column::make('Approved'),
             Column::computed('action')
                 ->exportable(false)

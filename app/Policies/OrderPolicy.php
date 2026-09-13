@@ -9,11 +9,23 @@ use Illuminate\Auth\Access\Response;
 class OrderPolicy
 {
     /**
+     * Perform pre-authorization checks.
+     */
+    public function before(User $user, string $ability): bool|null
+    {
+        if ($user->user_type === 'admin') {
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,7 +41,7 @@ class OrderPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +57,7 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order): bool
     {
-        //
+        return $user->id === $order->user_id;
     }
 
     /**
@@ -53,7 +65,7 @@ class OrderPolicy
      */
     public function restore(User $user, Order $order): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -61,6 +73,6 @@ class OrderPolicy
      */
     public function forceDelete(User $user, Order $order): bool
     {
-        //
+        return false;
     }
 }

@@ -23,13 +23,13 @@ class OrderDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('user_name', function ($order) {
-                return $order->user->name;
+                return $order->user?->name ?? 'N/A';
             })
             ->addColumn('email', function ($order) {
-                return $order->user->email;
+                return $order->user?->email ?? 'N/A';
             })
             ->addColumn('package', function ($order) {
-                return $order->package->name;
+                return $order->package?->name;
             })
             ->addColumn('paid_amount', function ($order) {
                 return $order->paid_amount . $order->base_currency;
@@ -45,7 +45,7 @@ class OrderDataTable extends DataTable
             })
             ->addColumn('created_at', function ($order) {
                 return $order->created_at->format('d m Y');
-//                return $order->created_at->diffForHumans();
+                //                return $order->created_at->diffForHumans();
             })
             ->addColumn('action', function ($order) {
                 return view('admin.order.datatable.action', ['order' => $order]);
@@ -58,7 +58,6 @@ class OrderDataTable extends DataTable
      */
     public function query(Order $model): QueryBuilder
     {
-//        return $model->newQuery();
         return $model->newQuery()
             ->with([
                 'user',

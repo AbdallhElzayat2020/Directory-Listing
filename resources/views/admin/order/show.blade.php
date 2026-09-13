@@ -25,9 +25,9 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <address>
-                                        <strong>Billed To:</strong> <span class="text-danger">{{$order->user->name}}</span>
+                                        <strong>Billed To:</strong> <span class="text-danger">{{ $order->user?->name ?? 'N/A' }}</span>
                                         <br>
-                                        <strong>Email:</strong> <span class="text-danger">{{$order->user->email}}</span>
+                                        <strong>Email:</strong> <span class="text-danger">{{ $order->user?->email ?? 'N/A' }}</span>
                                     </address>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                     </tr>
                                     <tr>
                                         <td>1</td>
-                                        <td>{{$order->package->name}}</td>
+                                        <td>{{ $order->package?->name ?? 'Deleted Package' }}</td>
                                         <td class="text-center">{{$order->base_amount . $order->base_currency}}</td>
                                         <td class="text-center">{{$order->paid_amount . $order->paid_currency}}</td>
                                         <td class="text-right">{{$order->base_amount . $order->paid_currency}}</td>

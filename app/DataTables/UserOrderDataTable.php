@@ -24,10 +24,10 @@ class UserOrderDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('user_name', function ($order) {
-                return $order->user->name;
+                return $order->user?->name ?? 'N/A';
             })
             ->addColumn('package', function ($order) {
-                return $order->package->name;
+                return $order->package?->name ?? 'N/A';
             })
             ->addColumn('paid_amount', function ($order) {
                 return $order->paid_amount . $order->base_currency;
@@ -56,12 +56,8 @@ class UserOrderDataTable extends DataTable
     public function query(Order $model): QueryBuilder
     {
         return $model->newQuery()
-//            ->where('user_id', auth()->id())
-
-            ->whereHas('user', function ($query) {
-                $query->where('id', auth()->id());
-            })
-            ->with(['user', 'package']);
+            ->with(['user', 'package'])
+            ->where('user_id', auth()->id());
     }
 
     /**

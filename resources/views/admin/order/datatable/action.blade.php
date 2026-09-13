@@ -8,7 +8,7 @@
 
     <form action="{{ route('admin.orders.destroy', $order->id) }}"
           method="POST"
-          onsubmit="return confirm('Are you sure you want to delete this Location?')">
+          onsubmit="return confirm('Are you sure you want to delete this Order?')">
 
         @csrf
         @method('DELETE')

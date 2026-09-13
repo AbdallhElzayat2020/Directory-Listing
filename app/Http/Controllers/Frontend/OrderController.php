@@ -17,16 +17,12 @@ class OrderController extends Controller
 
     public function show($id)
     {
-
-        $order = Order::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-
-        $this->authorize('view', $order);
+        $order = Order::with(['user', 'package'])
+            ->where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
 
         $user = Auth::user();
-
-        if ($order->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
 
         return view('frontend.dashboard.order.show', compact('order', 'user'));
     }

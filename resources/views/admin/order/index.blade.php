@@ -23,9 +23,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>All Orders</h4>
-                            <div class="card-header-action">
-                                <a href="{{ route('admin.locations.create') }}" class="btn btn-primary">Create <i class="fa-solid fa-plus"></i></a>
-                            </div>
                         </div>
                         <div class="card-body">
 

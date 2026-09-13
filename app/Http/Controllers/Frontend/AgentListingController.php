@@ -10,6 +10,7 @@ use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Listing;
 use App\Models\Location;
+use App\Models\Subscription;
 use App\Traits\FileHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -43,11 +44,17 @@ class AgentListingController extends Controller
         $categories = Category::active()->get();
         $locations = Location::active()->get();
         $amenities = Amenity::active()->get();
+
+        $subscription = Subscription::with(['package'])
+            ->where('user_id', $user->id)
+            ->first();
+
         return view('frontend.dashboard.listings.create', [
             'user' => $user,
             'locations' => $locations,
             'categories' => $categories,
-            'amenities' => $amenities
+            'amenities' => $amenities,
+            'subscription' => $subscription
         ]);
     }
 
@@ -129,6 +136,9 @@ class AgentListingController extends Controller
         $categories = Category::active()->get();
         $locations = Location::active()->get();
         $amenities = Amenity::active()->get();
+        $subscription = Subscription::with(['package'])
+            ->where('user_id', $user->id)
+            ->first();
         return view('frontend.dashboard.listings.edit', [
             'listing' => $listing,
             'user' => $user,
@@ -136,6 +146,7 @@ class AgentListingController extends Controller
             'categories' => $categories,
             'amenities' => $amenities,
             'selectedAmenities' => $selectedAmenities,
+            'subscription' => $subscription
         ]);
     }
 

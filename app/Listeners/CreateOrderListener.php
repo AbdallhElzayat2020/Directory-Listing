@@ -37,7 +37,7 @@ class CreateOrderListener
                 'user_id' => auth()->user()->id,
                 'package_id' => $package->id,
                 'payment_method' => $event->paymentInfo['payment_method'],
-                'payment_status' => $event->paymentInfo['payment_status'],
+                'payment_status' => 'completed',
                 'base_amount' => $package->price,
                 'base_currency' => config('settings.site_default_currency'),
                 'paid_amount' => $event->paymentInfo['paid_amount'],

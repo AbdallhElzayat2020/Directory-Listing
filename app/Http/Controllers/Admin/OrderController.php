@@ -27,6 +27,7 @@ class OrderController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * //
      */
     public function store(Request $request)
     {
@@ -42,23 +43,21 @@ class OrderController extends Controller
         return view('admin.order.show', compact('order'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'payment_status' => ['required', 'in:pending,completed,failed']
+        ]);
+
         $order = Order::findOrFail($id);
         $order->update([
             'payment_status' => $request->payment_status
         ]);
+
         return redirect()->back()->with('success', 'Order payment status updated successfully.');
     }
 
@@ -67,6 +66,10 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->subscription()->delete();
+        $order->delete();
+
+        return to_route('admin.orders.index')->with('success', 'Order deleted successfully.');
     }
 }
