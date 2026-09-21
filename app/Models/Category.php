@@ -34,6 +34,11 @@ class Category extends Model
         return $query->where('status', 'inactive');
     }
 
+    public function scopeFeatured(Builder $query): Builder
+    {
+        return $query->where('is_featured', 'yes');
+    }
+
     // -------------- Relationships -----------------
     public function listings(): HasMany
     {

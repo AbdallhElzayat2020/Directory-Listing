@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use App\Models\ListingVideoGallery;
+use App\Models\Subscription;
+use App\Rules\MaxVideos;
 use Illuminate\Http\Request;
 
 class AgentListingVideoGalleryController extends Controller
@@ -20,9 +22,12 @@ class AgentListingVideoGalleryController extends Controller
         if ($listing->user_id !== $user->id) {
             abort(403, 'Unauthorized action.');
         }
+        $subscription = Subscription::with(['package'])
+            ->where('user_id', $user->id)
+            ->first();
 
-//        $this->authorize('view', $listing);
-        return view('frontend.dashboard.listings.videoGallery.index', compact('listing', 'videos', 'user'));
+        return view('frontend.dashboard.listings.videoGallery.index',
+            compact('listing', 'videos', 'user', 'subscription'));
     }
 
     /**
@@ -39,13 +44,11 @@ class AgentListingVideoGalleryController extends Controller
         }
 
         $request->validate([
-            'video_url' => ['required', 'url'],
-            'platform' => ['nullable', 'string', 'max:255']
+            'video_url' => ['required', 'url', new MaxVideos($listing->id)],
         ]);
 
         $listing->videos()->create([
             'video_url' => $videoId,
-            'platform' => $request->platform ?? 'youtube',
         ]);
         return redirect()->back()->with('success', 'Video added successfully.');
     }

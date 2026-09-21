@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Frontend\Listing;
 
+use App\Rules\MaxAmenities;
+use App\Rules\MaxFeaturedListing;
 use App\Rules\MaxListings;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -41,11 +43,11 @@ class StoreAgentListingRequest extends FormRequest
             'whatsapp_link' => ['nullable', 'url', 'max:255'],
             'google_map_embed_code' => ['nullable', 'string'],
             'attachments' => ['nullable', 'file', 'mimes:pdf,jpg,png,jpeg,zip', 'max:10000'],
-            'amenities' => ['required', 'array'],
+            'amenities' => ['required', 'array', new MaxAmenities()],
             'amenities.*' => ['exists:amenities,id'],
             'expired_date' => ['required', 'date'],
             'status' => ['required', 'string', 'in:active,inactive'],
-            'is_featured' => ['required', 'in:yes,no'],
+            'is_featured' => ['required', 'in:yes,no', new MaxFeaturedListing()],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:255'],
             'listing' => ['required', new MaxListings()]

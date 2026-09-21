@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Frontend\Listing;
 
 use App\Models\Listing;
+use App\Rules\MaxAmenities;
+use App\Rules\MaxFeaturedListing;
+use App\Rules\MaxListings;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,13 +30,14 @@ class UpdateAgentListingRequest extends FormRequest
      */
     public function rules(): array
     {
+        $listingId = $this->route('listing')?->id;
         return [
             'category_id' => ['required', 'exists:categories,id', 'integer'],
             'location_id' => ['required', 'exists:locations,id', 'integer'],
             'package_id' => ['nullable', 'exists:packages,id', 'integer'],
             'image' => ['nullable', 'image', 'mimes:jpg,png,jpeg,webp', 'max:3000'],
             'thumbnail_image' => ['nullable', 'image', 'mimes:jpg,png,jpeg,webp', 'max:3000'],
-            'title' => ['required', 'string', 'max:255',    'unique:listings,title,' . $this->route('listing')->id,],
+            'title' => ['required', 'string', 'max:255', 'unique:listings,title,' . $this->route('listing')->id,],
             'description' => ['required', 'string'],
             'phone' => ['required', 'string', 'max:20'],
             'email' => ['required', 'email', 'max:255'],
@@ -47,14 +51,14 @@ class UpdateAgentListingRequest extends FormRequest
             'google_map_embed_code' => ['nullable', 'string'],
             'attachments' => ['nullable', 'file', 'mimes:pdf,jpg,png,jpeg,zip', 'max:10000'],
 
-            'amenities' => ['required', 'array'],
+            'amenities' => ['required', 'array', new MaxAmenities()],
             'amenities.*' => ['exists:amenities,id'],
             'expired_date' => ['required', 'date'],
             'status' => ['required', 'string', 'in:active,inactive'],
-            'is_verified' => ['required', 'in:yes,no'],
-            'is_featured' => ['required', 'in:yes,no'],
+            'is_featured' => ['required', 'in:yes,no', new MaxFeaturedListing($listingId)],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:255'],
+            'listing' => ['required']
         ];
     }
 }

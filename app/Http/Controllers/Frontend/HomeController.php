@@ -15,12 +15,18 @@ class HomeController extends Controller
     public function index(): View
     {
         $banner = Hero::first();
+
         $categories = Category::active()->showAtHome()->limit(10)->get();
+
         $packages = Package::with('features')->active()->showAtHome()->limit(3)->get();
+
+        $featuredCategories = Category::withCount(['listings'])->active()->showAtHome()->limit(6)->get();
+
         return view('frontend.home.index', [
             'banner' => $banner,
             'categories' => $categories,
             'packages' => $packages,
+            'featuredCategories' => $featuredCategories
         ]);
     }
 

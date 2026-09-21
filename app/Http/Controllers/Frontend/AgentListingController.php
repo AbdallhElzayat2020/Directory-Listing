@@ -121,15 +121,7 @@ class AgentListingController extends Controller
      */
     public function edit(Listing $listing)
     {
-//        $listing = Listing::findOrFail($id);
-
         $this->authorize('update', $listing);
-//        if (Auth::id() !== $listing->user_id) {
-//
-//            abort(403, 'Unauthorized action.');
-//
-//        }
-
 
         $user = auth()->user();
         $selectedAmenities = $listing->amenities()->pluck('amenities.id')->toArray();
