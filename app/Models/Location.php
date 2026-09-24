@@ -22,6 +22,19 @@ class Location extends Model
         return $query->where('status', 'inactive');
     }
 
+
+
+
+    public function scopeIsVerified(Builder $query): Builder
+    {
+        return $query->where('is_verified', 'yes');
+    }
+
+    public function scopeShowAtHome(Builder $query): Builder
+    {
+        return $query->where('show_at_home', true);
+    }
+
     // -------------- Relationships -----------------
 
     public function listings(): HasMany

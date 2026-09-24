@@ -61,6 +61,28 @@
                 </ul>
             </li>
 
+            <li class="{{ setSidebarActive(['admin.inquiries.*']) }}">
+                <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('admin.inquiries.index') }}">
+                    <div>
+                        <i class="fas fa-envelope"></i> <span>Inquiries</span>
+                    </div>
+                    @php
+                        $unreadInquiries = \App\Models\Inquiry::where('is_read', false)->count();
+                    @endphp
+                    @if($unreadInquiries > 0)
+                        <span class="badge badge-danger">{{ $unreadInquiries }}</span>
+                    @endif
+                </a>
+            </li>
+
+            <li class="{{ setSidebarActive(['admin.contacts.*']) }}">
+                <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('admin.contacts.index') }}">
+                    <div>
+                        <i class="fas fa-headset"></i> <span>Messages</span>
+                    </div>
+                </a>
+            </li>
+
             {{--  Packages Route  --}}
             <li class="menu-header">Manage Packages</li>
             <li class="dropdown {{setSidebarActive(['admin.packages.*','admin.package-features.*','admin.payment-settings.*'])}}">

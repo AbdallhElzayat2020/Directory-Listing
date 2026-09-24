@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\InquiryController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\AgentListingController;
 use App\Http\Controllers\Frontend\AgentListingImgGalleryController;
@@ -13,6 +16,7 @@ use App\Http\Controllers\Frontend\PasswordController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\UserInquiryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,7 +31,12 @@ Route::get('listing-modal/{id}', [ListingController::class, 'showModal'])->name(
 Route::get('all-listings', [ListingController::class, 'viewAll'])->name('all-listings');
 Route::get('packages', [PackageController::class, 'index'])->name('packages');
 Route::get('checkout/{slug}/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
+/* Contact Routes */
+Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
+/* About Routes */
 
+Route::get('about', [AboutController::class, 'index'])->name('about');
 
 /* --------------------- Protected Routes --------------------- */
 
@@ -67,7 +76,7 @@ Route::group([
     Route::delete('/listings/{listing}/gallery-videos/{video}', [AgentListingVideoGalleryController::class, 'destroy'])
         ->name('listings.videos-gallery.destroy');
 
-
+    /* Listing Schedule Routes */
     Route::prefix('listings/{listing}/schedules')
         ->name('listings.schedules.')
         ->controller(AgentListingScheduleController::class)
@@ -80,6 +89,16 @@ Route::group([
             Route::put('/{schedule}', 'update')->name('update');
             Route::delete('/{schedule}', 'destroy')->name('destroy');
         });
+
+    /* Listing inquiry Routes */
+
+    Route::post('listings/{listing}/inquiry', [InquiryController::class, 'book'])
+        ->name('listings.inquiry.store');
+
+    /* Show inquiry for Owner Listing  Routes */
+    Route::get('inquiries', [UserInquiryController::class, 'index'])->name('inquiries.index');
+    Route::get('inquiries/{inquiry}', [UserInquiryController::class, 'show'])->name('inquiries.show');
+    Route::delete('inquiries/{inquiry}', [UserInquiryController::class, 'destroy'])->name('inquiries.destroy');
 
     /* Orders Routes */
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');

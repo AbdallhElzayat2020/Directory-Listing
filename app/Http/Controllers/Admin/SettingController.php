@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\UpdateSettingRequest;
 use App\Models\Setting;
 use App\Services\SettingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -47,6 +48,7 @@ class SettingController extends Controller
         }
 
         $settingService->clearCachedSettings();
+//        Artisan::call('config:cache');
 
         return redirect()->back()->with('success', 'Updated Successfully');
     }

@@ -26,6 +26,7 @@ class UpdateSettingRequest extends FormRequest
             'site_email' => 'required|email|max:255',
             'site_phone' => 'required|string|max:255',
             'site_default_currency' => 'required|string|max:3',
+            'site_default_timezone' => 'required|string|max:255',
             'site_currency_icon' => 'required|string|max:255',
             'site_currency_position' => 'required|in:left,right',
         ];

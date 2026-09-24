@@ -1,7 +1,9 @@
 <?php
 
 
-use App\Http\Controllers\Admin\{AmenityController,
+use App\Http\Controllers\Admin\{
+    AdminInquiryController,
+    AmenityController,
     CategoryController,
     ListingController,
     ListingImageGalleryController,
@@ -17,7 +19,8 @@ use App\Http\Controllers\Admin\{AmenityController,
     ProfileController,
     DashboardController,
     PasswordController,
-    SettingController
+    SettingController,
+    ContactController
 };
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
@@ -137,6 +140,15 @@ Route::group(
         /* Order Routes */
         Route::resource('orders', OrderController::class);
 
+            Route::get('inquiries', [AdminInquiryController::class, 'index'])->name('inquiries.index');
+            Route::get('inquiries/{inquiry}', [AdminInquiryController::class, 'show'])->name('inquiries.show');
+            Route::delete('inquiries/{inquiry}', [AdminInquiryController::class, 'destroy'])->name('inquiries.destroy');
+
+        /* Contact Messages Routes */
+        Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+        Route::get('contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
+        Route::patch('contacts/{contact}/toggle-read', [ContactController::class, 'toggleRead'])->name('contacts.toggle-read');
+        Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 
 
 

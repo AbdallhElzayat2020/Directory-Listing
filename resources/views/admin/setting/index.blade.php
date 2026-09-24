@@ -98,6 +98,21 @@
                                                                 </div>
                                                             </div>
 
+{{--                                                            <div class="col-md-12">--}}
+{{--                                                                <div class="form-group">--}}
+{{--                                                                    <label for="">Site Default Timezone </label>--}}
+{{--                                                                    <select name="site_default_timezone" id="site_default_timezone" class="form-control select2">--}}
+
+{{--                                                                        @foreach (config('time-zone') as $key => $timezone)--}}
+{{--                                                                            <option value="{{ $timezone }}"@selected($timezone === config('settings.site_default_timezone'))>--}}
+{{--                                                                                {{ $key }} ({{ $timezone }})--}}
+{{--                                                                            </option>--}}
+{{--                                                                        @endforeach--}}
+
+{{--                                                                    </select>--}}
+{{--                                                                </div>--}}
+{{--                                                            </div>--}}
+
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="">Site Currency Icon</label>
