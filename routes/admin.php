@@ -1,8 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\Admin\{
-    AdminInquiryController,
+use App\Http\Controllers\Admin\{AdminInquiryController,
     AmenityController,
     CategoryController,
     ListingController,
@@ -19,9 +18,9 @@ use App\Http\Controllers\Admin\{
     ProfileController,
     DashboardController,
     PasswordController,
+    RolePermissionController,
     SettingController,
-    ContactController
-};
+    ContactController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 
@@ -166,6 +165,9 @@ Route::group(
         /* Stripe Settings Routes */
         Route::post('stripe-settings', [PaymentSettingController::class, 'stripeSetting'])
             ->name('stripe-settings.update');
+
+        /* Role  Routes */
+        Route::resource('role',RolePermissionController::class);
 
     }
 );

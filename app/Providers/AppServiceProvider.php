@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Category;
-use App\Models\Setting;
 use App\Observers\CategoryObserver;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,9 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // set dynamically timezone from settings table
-//        $timezone = Setting::where('key', 'site_default_timezone')->first();
-//        config()->set(['app.timezone' => $timezone->value]);
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
 
 
         // register the observer for the Category model

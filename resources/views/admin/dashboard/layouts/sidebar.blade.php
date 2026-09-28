@@ -108,6 +108,27 @@
                 </ul>
             </li>
 
+
+            {{--  Roles and Permissions Route  --}}
+            <li class="menu-header">Access Management</li>
+            <li class="dropdown {{setSidebarActive(
+            [
+            'admin.role.*',
+            ]
+            )}}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-columns"> </i> <span>Roles and Permissions</span>
+                </a>
+                <ul class="dropdown-menu">
+
+                    {{-- Roles  --}}
+                    <li class="{{setSidebarActive(['admin.role.*'])}}">
+                        <a class="nav-link " href="{{ route('admin.role.index') }}">Roles</a>
+                    </li>
+
+                </ul>
+            </li>
+
             <li><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="far fa-jedi-order"></i> <span>Orders</span></a></li>
 
             <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>

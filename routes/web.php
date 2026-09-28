@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\ListingController;
 use App\Http\Controllers\Frontend\PackageController;
 use App\Http\Controllers\Frontend\PasswordController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\PrivacyController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserInquiryController;
@@ -31,12 +32,14 @@ Route::get('listing-modal/{id}', [ListingController::class, 'showModal'])->name(
 Route::get('all-listings', [ListingController::class, 'viewAll'])->name('all-listings');
 Route::get('packages', [PackageController::class, 'index'])->name('packages');
 Route::get('checkout/{slug}/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
+
 /* Contact Routes */
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('contact', [ContactController::class, 'store'])->name('contact.store');
 /* About Routes */
 
 Route::get('about', [AboutController::class, 'index'])->name('about');
+Route::get('privacy-policy', [PrivacyController::class, 'index'])->name('privacy-policy');
 
 /* --------------------- Protected Routes --------------------- */
 

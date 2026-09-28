@@ -13,6 +13,12 @@ class HeroController extends Controller
 {
     use FileHandler;
 
+    public function __construct()
+    {
+        $this->middleware(['permission:section index'])->only('index');
+        $this->middleware(['permission:section update'])->only('update');
+    }
+
     public function index()
     {
         $banner = Hero::first();
