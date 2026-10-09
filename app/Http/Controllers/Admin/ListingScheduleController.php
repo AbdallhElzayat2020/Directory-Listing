@@ -15,6 +15,14 @@ use Exception;
 
 class ListingScheduleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:listing index'])->only('index');
+        $this->middleware(['permission:listing create'])->only(['create', 'store']);
+        $this->middleware(['permission:listing update'])->only(['edit', 'update']);
+        $this->middleware(['permission:listing delete'])->only('destroy');
+    }
+
     public function index(ListingScheduleDataTable $dataTable, Listing $listing)
     {
         return $dataTable->render('admin.listings.listing-schedule.index', compact('listing'));

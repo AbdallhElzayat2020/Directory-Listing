@@ -10,6 +10,12 @@ use Illuminate\View\View;
 
 class ContactController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['permission:message index'])->only('index', 'show', 'destroy', 'toggleRead');
+    }
+
     /**
      * Display a listing of the contact messages.
      */
@@ -40,10 +46,10 @@ class ContactController extends Controller
         $contacts = $query->latest()->paginate(15)->withQueryString();
 
         $stats = [
-            'total'  => Contact::count(),
+            'total' => Contact::count(),
             'unread' => Contact::unread()->count(),
-            'read'   => Contact::read()->count(),
-            'today'  => Contact::whereDate('created_at', today())->count(),
+            'read' => Contact::read()->count(),
+            'today' => Contact::whereDate('created_at', today())->count(),
         ];
 
         return view('admin.contact.index', compact('contacts', 'stats'));

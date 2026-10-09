@@ -10,7 +10,7 @@
 
         <form action="{{ route('admin.role.destroy', $role->id) }}"
               method="POST"
-              onsubmit="return confirm('Are you sure you want to delete this Location?')">
+              onsubmit="return confirm('Are you sure you want to delete this Role?')">
 
             @csrf
             @method('DELETE')

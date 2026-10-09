@@ -23,11 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::before(function ($user, $ability) {
-            return $user->hasRole('Super Admin') ? true : null;
-        });
-
-
         // register the observer for the Category model
         Category::observe(CategoryObserver::class);
     }

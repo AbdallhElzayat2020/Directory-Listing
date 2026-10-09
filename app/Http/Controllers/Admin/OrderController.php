@@ -9,9 +9,12 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:order index'])->only(['index', 'show', 'update']);
+        $this->middleware(['permission:order delete'])->only('destroy');
+    }
+
     public function index(OrderDataTable $dataTable)
     {
         return $dataTable->render('admin.order.index');
@@ -56,18 +59,4 @@ class OrderController extends Controller
         return to_route('admin.orders.index')->with('success', 'Order deleted successfully.');
     }
 
-    public function create()
-    {
-
-    }
-
-    public function store()
-    {
-
-    }
-
-    public function edit(Order $order)
-    {
-
-    }
 }

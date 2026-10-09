@@ -10,11 +10,17 @@ use Illuminate\Http\Response;
 
 class PendingListingController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['permission:pending listing'])->only('index');
+        $this->middleware(['permission:pending listing'])->only(['update']);
+    }
+
     public function index(PendingListingDataTable $dataTable)
     {
         return $dataTable->render('admin.pending-listing.index');
     }
-
     /**
      * Update Pending the specified resource from storage.
      */

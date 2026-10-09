@@ -15,9 +15,13 @@ class ListingImageGalleryController extends Controller
 {
     use FileHandler;
 
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:listing index'])->only('index');
+        $this->middleware(['permission:listing create'])->only(['store']);
+        $this->middleware(['permission:listing delete'])->only('destroy');
+    }
+
     public function index(Listing $listing): View
     {
         $images = $listing->images;

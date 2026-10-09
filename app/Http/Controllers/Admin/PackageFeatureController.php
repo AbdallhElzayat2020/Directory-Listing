@@ -11,9 +11,14 @@ use Illuminate\Http\Request;
 
 class PackageFeatureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:package index'])->only('index', 'packageFeatures', 'createForPackage');
+        $this->middleware(['permission:package create'])->only(['create', 'store', 'show']);
+        $this->middleware(['permission:package update'])->only(['edit', 'update']);
+        $this->middleware(['permission:package delete'])->only('destroy');
+    }
+
     public function index()
     {
         $features = PackageFeature::with('package')->latest()->paginate(10);

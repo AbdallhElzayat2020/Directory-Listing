@@ -13,9 +13,14 @@ use Illuminate\View\View;
 
 class PackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware(['permission:package index'])->only('index');
+        $this->middleware(['permission:package create'])->only(['create', 'store', 'show']);
+        $this->middleware(['permission:package update'])->only(['edit', 'update']);
+        $this->middleware(['permission:package delete'])->only('destroy');
+    }
+
     public function index(PackageDataTable $dataTable)
     {
         return $dataTable->render('admin.package.index');

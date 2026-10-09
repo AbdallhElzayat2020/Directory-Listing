@@ -5,11 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Inquiry;
 use App\Models\Listing;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminInquiryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['permission:listing index'])->only('index');
+        $this->middleware(['permission:listing update'])->only(['show']);
+        $this->middleware(['permission:listing delete'])->only('destroy');
+    }
+
+
     public function index(Request $request)
     {
         $query = Inquiry::with(['listing', 'owner', 'sender']);

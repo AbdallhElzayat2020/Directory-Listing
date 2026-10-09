@@ -14,124 +14,146 @@
                     <i class="far fa-square"></i> <span>Dashboard</span>
                 </a>
             </li>
+            @can('section index')
+                {{--  Sections Route  --}}
+                <li class="menu-header">Sections</li>
+                <li class="dropdown {{setSidebarActive(['admin.hero.*'])}}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                        <i class="fas fa-columns"> </i> <span>Sections</span>
+                    </a>
+                    <ul class="dropdown-menu">
 
-            {{--  Sections Route  --}}
-            <li class="menu-header">Sections</li>
-            <li class="dropdown {{setSidebarActive(['admin.hero.*'])}}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                    <i class="fas fa-columns"> </i> <span>Sections</span>
-                </a>
-                <ul class="dropdown-menu">
+                        {{--  Hero Section  --}}
+                        <li class="{{setSidebarActive(['admin.hero.index'])}}">
+                            <a class="nav-link " href="{{ route('admin.hero.index') }}">Hero Section</a>
+                        </li>
 
-                    {{--  Hero Section  --}}
-                    <li class="{{setSidebarActive(['admin.hero.index'])}}">
-                        <a class="nav-link " href="{{ route('admin.hero.index') }}">Hero Section</a>
-                    </li>
+                    </ul>
+                </li>
+            @endcan
 
-                </ul>
-            </li>
-
-            {{--  Listing Route  --}}
-            <li class="menu-header">Listing</li>
-            <li class="dropdown {{setSidebarActive([
+            @can('listing index')
+                {{--  Listing Route  --}}
+                <li class="menu-header">Listing</li>
+                <li class="dropdown {{setSidebarActive([
                 'admin.categories.*',
                 'admin.locations.*',
                 'admin.amenities.*',
                 'admin.listings.*',
                 ])}}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                    <i class="fas fa-columns"></i> <span>Listing</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="{{setSidebarActive(['admin.categories.*'])}}">
-                        <a class="nav-link" href="{{ route('admin.categories.index') }}">Categories</a>
-                    </li>
-                    <li class="{{setSidebarActive(['admin.locations.*'])}}">
-                        <a class="nav-link" href="{{ route('admin.locations.index') }}">Locations</a>
-                    </li>
-                    <li class="{{setSidebarActive(['admin.amenities.*'])}}">
-                        <a class="nav-link" href="{{ route('admin.amenities.index') }}">Amenities</a>
-                    </li>
-                    <li class="{{setSidebarActive(['admin.listings.*'])}}">
-                        <a class="nav-link" href="{{ route('admin.listings.index') }}">Listings</a>
-                    </li>
-                    <li class="{{setSidebarActive(['admin.listings.pending.index'])}}">
-                        <a class="nav-link" href="{{ route('admin.listings.pending.index') }}">Pending Listings</a>
-                    </li>
-                </ul>
-            </li>
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                        <i class="fas fa-columns"></i> <span>Listing</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="{{setSidebarActive(['admin.categories.*'])}}">
+                            <a class="nav-link" href="{{ route('admin.categories.index') }}">Categories</a>
+                        </li>
+                        <li class="{{setSidebarActive(['admin.locations.*'])}}">
+                            <a class="nav-link" href="{{ route('admin.locations.index') }}">Locations</a>
+                        </li>
+                        <li class="{{setSidebarActive(['admin.amenities.*'])}}">
+                            <a class="nav-link" href="{{ route('admin.amenities.index') }}">Amenities</a>
+                        </li>
+                        <li class="{{setSidebarActive(['admin.listings.*'])}}">
+                            <a class="nav-link" href="{{ route('admin.listings.index') }}">Listings</a>
+                        </li>
+                        <li class="{{setSidebarActive(['admin.listings.pending.index'])}}">
+                            <a class="nav-link" href="{{ route('admin.listings.pending.index') }}">Pending Listings</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="{{ setSidebarActive(['admin.inquiries.*']) }}">
-                <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('admin.inquiries.index') }}">
-                    <div>
-                        <i class="fas fa-envelope"></i> <span>Inquiries</span>
-                    </div>
-                    @php
-                        $unreadInquiries = \App\Models\Inquiry::where('is_read', false)->count();
-                    @endphp
-                    @if($unreadInquiries > 0)
-                        <span class="badge badge-danger">{{ $unreadInquiries }}</span>
-                    @endif
-                </a>
-            </li>
+            @can('message index|message index')
+                <li class="{{ setSidebarActive(['admin.inquiries.*']) }}">
+                    <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('admin.inquiries.index') }}">
+                        <div>
+                            <i class="fas fa-envelope"></i> <span>Inquiries</span>
+                        </div>
+                        @php
+                            $unreadInquiries = \App\Models\Inquiry::where('is_read', false)->count();
+                        @endphp
+                        @if($unreadInquiries > 0)
+                            <span class="badge badge-danger">{{ $unreadInquiries }}</span>
+                        @endif
+                    </a>
+                </li>
+            @endcan
 
-            <li class="{{ setSidebarActive(['admin.contacts.*']) }}">
-                <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('admin.contacts.index') }}">
-                    <div>
-                        <i class="fas fa-headset"></i> <span>Messages</span>
-                    </div>
-                </a>
-            </li>
+            @can('contact index|message index')
+                <li class="{{ setSidebarActive(['admin.contacts.*']) }}">
+                    <a class="nav-link d-flex align-items-center justify-content-between" href="{{ route('admin.contacts.index') }}">
+                        <div>
+                            <i class="fas fa-headset"></i> <span>Messages</span>
+                        </div>
+                    </a>
+                </li>
+            @endcan
 
-            {{--  Packages Route  --}}
-            <li class="menu-header">Manage Packages</li>
-            <li class="dropdown {{setSidebarActive(['admin.packages.*','admin.package-features.*','admin.payment-settings.*'])}}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                    <i class="fas fa-columns"> </i> <span>Manage Packages</span>
-                </a>
-                <ul class="dropdown-menu">
+            @can('package index|')
 
-                    {{-- Packages  --}}
-                    <li class="{{setSidebarActive(['admin.packages.*'])}}">
-                        <a class="nav-link " href="{{ route('admin.packages.index') }}">Packages</a>
-                    </li>
-                    {{-- Package Features  --}}
-                    <li class="{{setSidebarActive(['admin.package-features.*'])}}">
-                        <a class="nav-link " href="{{ route('admin.package-features.index') }}">Package Features</a>
-                    </li>
+                {{--  Packages Route  --}}
+                <li class="menu-header">Manage Packages</li>
+                <li class="dropdown {{setSidebarActive(['admin.packages.*','admin.package-features.*','admin.payment-settings.*'])}}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                        <i class="fas fa-columns"> </i> <span>Manage Packages</span>
+                    </a>
+                    <ul class="dropdown-menu">
 
-                    {{-- Payment Settings  --}}
-                    <li class="{{setSidebarActive(['admin.payment-settings.*'])}}">
-                        <a class="nav-link " href="{{ route('admin.paypal-settings.index') }}">Payment Settings</a>
-                    </li>
+                        {{-- Packages  --}}
+                        <li class="{{setSidebarActive(['admin.packages.*'])}}">
+                            <a class="nav-link " href="{{ route('admin.packages.index') }}">Packages</a>
+                        </li>
+                        {{-- Package Features  --}}
+                        <li class="{{setSidebarActive(['admin.package-features.*'])}}">
+                            <a class="nav-link " href="{{ route('admin.package-features.index') }}">Package Features</a>
+                        </li>
 
-                </ul>
-            </li>
+                        {{-- Payment Settings  --}}
+                        <li class="{{setSidebarActive(['admin.payment-settings.*'])}}">
+                            <a class="nav-link " href="{{ route('admin.paypal-settings.index') }}">Payment Settings</a>
+                        </li>
 
+                    </ul>
+                </li>
+            @endcan
 
-            {{--  Roles and Permissions Route  --}}
-            <li class="menu-header">Access Management</li>
-            <li class="dropdown {{setSidebarActive(
+            @can('access management index')
+                {{--  Roles and Permissions Route  --}}
+                <li class="menu-header">Access Management</li>
+                <li class="dropdown {{setSidebarActive(
             [
             'admin.role.*',
+            'admin.role-users.*',
             ]
             )}}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                    <i class="fas fa-columns"> </i> <span>Roles and Permissions</span>
-                </a>
-                <ul class="dropdown-menu">
+                    <a href="#" class="nav-link has-dropdown {{setSidebarActive(['admin.role.*', 'admin.role-users.*'] )}} "
+                       data-toggle="dropdown">
+                        <i class="fas fa-columns"> </i> <span>Roles and Permissions</span>
+                    </a>
+                    <ul class="dropdown-menu">
 
-                    {{-- Roles  --}}
-                    <li class="{{setSidebarActive(['admin.role.*'])}}">
-                        <a class="nav-link " href="{{ route('admin.role.index') }}">Roles</a>
-                    </li>
+                        {{-- Roles  --}}
+                        <li class="{{setSidebarActive(['admin.role.*'])}}">
+                            <a class="nav-link " href="{{ route('admin.role.index') }}">Roles</a>
+                        </li>
 
-                </ul>
-            </li>
+                        {{-- Role Users  --}}
+                        <li class="{{setSidebarActive(['admin.role-users.*'])}}">
+                            <a class="nav-link " href="{{ route('admin.role-users.index') }}">Role Users</a>
+                        </li>
 
-            <li><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="far fa-jedi-order"></i> <span>Orders</span></a></li>
+                    </ul>
+                </li>
+            @endcan
 
-            <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
+            @can('order index')
+                <li><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="far fa-jedi-order"></i> <span>Orders</span></a></li>
+            @endcan
+
+            @can('setting index')
+                <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
+            @endcan
 
         </ul>
     </aside>

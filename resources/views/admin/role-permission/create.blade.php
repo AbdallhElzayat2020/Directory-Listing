@@ -54,22 +54,20 @@
                                         </div>
                                     </div>
 
-
                                     {{-- Permissions --}}
                                     <div class="col-lg-12">
                                         <div class="form-group">
 
-
-                                            @foreach($permissions as $groupName => $permission)
+                                            @foreach($permissions as $groupName => $groupPermissions)
 
                                                 <div class="form-group">
                                                     <h6>{{$groupName}} Permissions</h6>
                                                     <div class="row">
-                                                        @foreach($permission as $item)
+                                                        @foreach($groupPermissions as $item)
                                                             <div class="col-md-2">
                                                                 <div class="control-label">{{$item->name}}</div>
                                                                 <label class="custom-switch mt-2">
-                                                                    <input @selected(in_array($item->name, old('permissions',   [])))
+                                                                    <input @checked(in_array($item->name, old('permissions',   [])))
                                                                            type="checkbox" name="permissions[]" value="{{$item->name}}" class="custom-switch-input">
                                                                     <span class="custom-switch-indicator"></span>
                                                                     <span class="custom-switch-description">{{$item->name}}</span>
@@ -93,7 +91,6 @@
                                             Create
                                         </button>
                                     </div>
-
                             </form>
                         </div>
 

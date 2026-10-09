@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class ListingVideoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:listing index'])->only('index');
+        $this->middleware(['permission:listing create'])->only(['store']);
+        $this->middleware(['permission:listing delete'])->only('destroy');
+    }
 
     public function index(Listing $listing)
     {
@@ -36,7 +42,6 @@ class ListingVideoController extends Controller
         ]);
         return redirect()->back()->with('success', 'Video added successfully.');
     }
-
 
     public function destroy(Listing $listing, ListingVideoGallery $video)
     {

@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware(['permission:setting index'])->only('index', 'update');
+    }
+
     public function index()
     {
         return view('admin.setting.index');
@@ -36,7 +40,6 @@ class SettingController extends Controller
     //     return redirect()->back()
     //         ->with('success', 'Updated Successfully');
     // }
-
 
     public function update(UpdateSettingRequest $request, SettingService $settingService)
     {

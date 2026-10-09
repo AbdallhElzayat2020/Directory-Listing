@@ -10,6 +10,10 @@ use Spatie\Permission\Models\Role;
 
 class RolePermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:access management']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +28,6 @@ class RolePermissionController extends Controller
     public function create()
     {
         $permissions = Permission::all()->groupBy('group_name');
-
         return view('admin.role-permission.create', compact('permissions'));
     }
 
@@ -42,16 +45,8 @@ class RolePermissionController extends Controller
         $role = Role::create(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
 
-        return redirect()->route('admin.role.index')
+        return to_route('admin.role.index')
             ->with('success', 'created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -59,12 +54,10 @@ class RolePermissionController extends Controller
      */
     public function edit(string $id)
     {
-        $role = Role::find($id);
-        if (!$role) {
-            abort(404);
-        }
+        $role = Role::findOrFail($id);
+
         if ($role->name === 'Super Admin') {
-            abort(403);
+           abort(403, 'Cannot edit the Super Admin role.');
         }
 
         $rolePermissions = $role->permissions->pluck('name')->toArray();
@@ -92,7 +85,6 @@ class RolePermissionController extends Controller
             abort(403);
         }
 
-
         $role->update(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
         return redirect()->route('admin.role.index')
@@ -106,11 +98,7 @@ class RolePermissionController extends Controller
     {
         try {
 
-            $role = Role::find($id);
-            if (!$role) {
-                abort(404, 'Role not found.');
-            }
-
+            $role = Role::findOrFail($id);
 
             if ($role->name === 'Super Admin') {
                 return back()->with('error', "Cannot delete the Super Admin role.");

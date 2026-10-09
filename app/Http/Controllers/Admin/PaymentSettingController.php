@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class PaymentSettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['permission:setting index'])->only('index', 'stripeSetting', 'paypalSetting');
+    }
+
+
     public function index()
     {
         return view('admin.payment-setting.index');
