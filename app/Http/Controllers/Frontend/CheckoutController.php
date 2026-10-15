@@ -10,6 +10,7 @@ class CheckoutController extends Controller
 {
     public function index(string $slug, string $id)
     {
+        $packages = Package::where('status', 'active')->get();
         $package = Package::where('slug', $slug)->where('id', $id)->firstOrFail();
         /* store package id in session */
         session()->put('selected_package_id', $package->id);
@@ -32,6 +33,6 @@ class CheckoutController extends Controller
                 ->with('success', __('Your order has been placed successfully.'));
         }
 
-        return view('frontend.pages.checkout', compact('package'));
+        return view('frontend.pages.checkout', compact('package', 'packages'));
     }
 }

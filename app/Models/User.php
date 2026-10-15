@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -31,6 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'status',
         'avatar',
         'user_type',
         'name',
@@ -67,6 +69,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeInactive(Builder $query): Builder
+    {
+        return $query->where('status', 'inactive');
+    }
 
     public function package(): HasOne
     {

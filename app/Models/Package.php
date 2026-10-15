@@ -34,6 +34,11 @@ class Package extends Model
         return $query->where('status', 'active');
     }
 
+    public function scopeInactive(Builder $query): Builder
+    {
+        return $query->where('status', 'inactive');
+    }
+
     public function scopeShowAtHome(Builder $query): Builder
     {
         return $query->where('show_at_home', 'yes');
@@ -47,9 +52,9 @@ class Package extends Model
         return $this->hasMany(PackageFeature::class, 'package_id', 'id');
     }
 
-//    public function subscriptions(): HasMany
-//    {
-//        return $this->hasMany(Subscription::class, 'package_id', 'id');
-//    }
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class, 'package_id', 'id');
+    }
 
 }

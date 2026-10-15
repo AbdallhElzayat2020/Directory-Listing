@@ -32,7 +32,7 @@ class Order extends Model
 
     public function package(): BelongsTo
     {
-        return $this->belongsTo(Package::class)->withTrashed();
+        return $this->belongsTo(Package::class);
     }
 
     public function subscription(): HasOne

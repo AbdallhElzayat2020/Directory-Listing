@@ -17,7 +17,6 @@ class AdminInquiryController extends Controller
         $this->middleware(['permission:listing delete'])->only('destroy');
     }
 
-
     public function index(Request $request)
     {
         $query = Inquiry::with(['listing', 'owner', 'sender']);
@@ -34,7 +33,6 @@ class AdminInquiryController extends Controller
             $query->where('listing_id', $request->listing_id);
         }
 
-        // بحث
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {

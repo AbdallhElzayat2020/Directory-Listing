@@ -155,6 +155,8 @@ Route::group(
         /* Settings Routes */
         Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
         Route::post('general-settings', [SettingController::class, 'update'])->name('general-settings.update');
+        Route::post('logo-favicon-settings', [SettingController::class, 'logoSettings'])->name('logo-favicon-settings.update');
+        Route::post('appearance-settings', [SettingController::class, 'appearanceSettings'])->name('appearance-settings.update');
 
         /* PayPal Settings Routes */
         Route::get('paypal-settings', [PaymentSettingController::class, 'index'])

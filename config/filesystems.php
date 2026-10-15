@@ -89,6 +89,14 @@ return [
             'throw' => false,
         ],
 
+        'settings' => [
+            'driver' => 'local',
+            'root' => public_path('settings'),
+            'url' => env('APP_URL') . '/settings',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
