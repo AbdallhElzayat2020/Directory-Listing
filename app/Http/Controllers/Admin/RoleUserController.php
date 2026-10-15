@@ -78,6 +78,12 @@ class RoleUserController extends Controller
     public function update(RoleUserUpdateRequest $request, string $id)
     {
         $user = User::findOrFail($id);
+        if ($user->id === Auth::id()) {
+            return back()->with('error', 'You cannot update your own account.');
+        }
+        if ($user->hasRole('Super Admin') && User::role('Super Admin')->count() <= 1) {
+            return back()->with('error', 'You cannot update the last Super Admin.');
+        }
         $user->update([
             'name'      => $request->name,
             'email'     => $request->email,

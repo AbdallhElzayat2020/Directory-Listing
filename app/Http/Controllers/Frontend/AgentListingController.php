@@ -49,6 +49,12 @@ class AgentListingController extends Controller
             ->where('user_id', $user->id)
             ->first();
 
+        if (!$subscription) {
+            return to_route('contact.index')
+                ->with('error', 'You need to subscribe to a package before creating a listing or contact us for more information.');
+        }
+
+
         return view('frontend.dashboard.listings.create', [
             'user' => $user,
             'locations' => $locations,

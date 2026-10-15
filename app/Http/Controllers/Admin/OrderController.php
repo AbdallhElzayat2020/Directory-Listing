@@ -59,4 +59,19 @@ class OrderController extends Controller
         return to_route('admin.orders.index')->with('success', 'Order deleted successfully.');
     }
 
+    public function create()
+    {
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    public function edit(Order $order)
+    {
+
+    }
+
 }

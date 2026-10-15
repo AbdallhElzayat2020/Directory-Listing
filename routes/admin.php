@@ -4,6 +4,7 @@
 use App\Http\Controllers\Admin\{AdminInquiryController,
     AmenityController,
     CategoryController,
+    ClearDatabaseController,
     ListingController,
     ListingImageGalleryController,
     ListingScheduleController,
@@ -21,8 +22,7 @@ use App\Http\Controllers\Admin\{AdminInquiryController,
     RolePermissionController,
     RoleUserController,
     SettingController,
-    ContactController
-};
+    ContactController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 
@@ -175,5 +175,8 @@ Route::group(
         /* Role Users  Routes */
         Route::resource('role-users', RoleUserController::class);
 
+        /* Database Routes */
+        Route::get('clear-database', [ClearDatabaseController::class, 'index'])->name('clear-database');
+        Route::delete('clear-database', [ClearDatabaseController::class, 'clearDB'])->name('clear-database.destroy');
     }
 );

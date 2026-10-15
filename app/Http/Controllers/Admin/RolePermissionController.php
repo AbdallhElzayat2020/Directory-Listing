@@ -118,4 +118,9 @@ class RolePermissionController extends Controller
                 ->with('error', 'Failed to delete role: ' . $e->getMessage());
         }
     }
+
+    public function show(Role $role)
+    {
+
+    }
 }

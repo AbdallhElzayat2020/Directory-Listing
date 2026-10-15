@@ -58,7 +58,7 @@
                                     {{-- Password --}}
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="password">Password <span class="text-danger">*</span></label>
+                                            <label for="password">Passwor</label>
                                             <input type="text" id="password" placeholder="Please enter the password"
                                                    name="password" value="{{ old('password') }}" class="form-control">
                                             @error('password')
@@ -70,7 +70,7 @@
                                     {{-- Password Confirmation --}}
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="password_confirmation">Password Confirmation <span class="text-danger">*</span></label>
+                                            <label for="password_confirmation">Password Confirmation</label>
                                             <input type="text" id="password_confirmation" placeholder="Please enter the password confirmation"
                                                    name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control">
                                             @error('password_confirmation')

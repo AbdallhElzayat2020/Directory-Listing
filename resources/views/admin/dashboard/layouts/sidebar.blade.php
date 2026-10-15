@@ -155,6 +155,8 @@
                 <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
             @endcan
 
+            <li><a class="nav-link" href="{{ route('admin.clear-database') }}"><i class="fas fa-database"></i> <span>Clear Database</span></a></li>
+
         </ul>
     </aside>
 </div>
